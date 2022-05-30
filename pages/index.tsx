@@ -1,30 +1,35 @@
 import Head from 'next/head'
-import Layout, { siteTitle } from '../components/layout'
-import utilStyles from '../styles/utils.module.css'
-import { getSortedPostsData } from '../lib/posts'
-import Link from 'next/link'
-import Date from '../components/date'
 import { GetStaticProps } from 'next'
-import { Fragment, useState } from 'react'
+import { Fragment } from 'react'
 
+// Root Page 
+// SSG 
+
+interface Props {
+  value: string;
+}
 
 const Home = ({
-  
-}) => {
-  const [test,setTest]:[any,any] = useState(0);
+  value
+}:Props) => {
   return (
     <Fragment>
       <Head>
         <title>"EcoTrans Website"</title>
       </Head>
 
-      <h1>EcoTrans Landing Page</h1>
+      <h1 className="text-5xl text-center font-bold underline">EcoTrans Landing Page</h1>
+      <h2>{value}</h2>
     </Fragment>
   );
 }
 
 export const getStaticProps: GetStaticProps = async () => {
   console.log("Test Static")
+  return {
+    props:
+    {value:"test"}
+  }
 }
 
 
