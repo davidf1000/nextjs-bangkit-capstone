@@ -7,7 +7,7 @@ import Content from "./Content";
 const Landing = (): JSX.Element => (
     <Fragment>
         <div className="flex flex-col h-screen">
-        <NavBar />
+        <NavBar login={false}/>
         <Content />
         <Footer />
         </div>

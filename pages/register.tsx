@@ -1,5 +1,6 @@
 import { Fragment, useEffect, useState } from 'react'
 import Head from 'next/head'
+import NavBar from '../components/Navbar';
 
 
 // Login
@@ -9,12 +10,21 @@ import Head from 'next/head'
 const Register = (): JSX => {
     return (
         <Fragment>
-            <Head>
-                <title>"EcoTrans Website"</title>
-            </Head>
-            <h1 className="text-5xl text-center font-bold underline">Register</h1>
+          <Head>
+            <title>"EcoTrans Website"</title>
+          </Head>
+          <style jsx global>{`
+  body {
+    background: #86efac};
+  }
+`}</style>          
+          <NavBar login={true} />
+          <div className="container mx-auto w-1/2" >
+            
+          </div>
+    
         </Fragment>
-    );
+      );
 }
 
 export default Register;

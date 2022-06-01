@@ -19,7 +19,7 @@ const Home = ({
       <Head>
         <title>"EcoTrans Website"</title>
       </Head>
-      <Landing />
+      <Landing login={false}/>
     </Fragment>
   );
 }
