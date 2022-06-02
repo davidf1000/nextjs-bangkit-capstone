@@ -1,9 +1,7 @@
-import Head from 'next/head'
 import { GetStaticProps } from 'next'
 import { Fragment } from 'react'
-import Link from 'next/link'
 import Landing from '../components/Landing';
-// import '../asset/css/global.css'
+import Heads from '../components/Heads';
 // Root Page 
 // SSG 
 
@@ -16,9 +14,7 @@ const Home = ({
 }:Props) => {
   return (
     <Fragment>
-      <Head>
-        <title>"EcoTrans Website"</title>
-      </Head>
+      <Heads />
       <Landing login={false}/>
     </Fragment>
   );
