@@ -1,15 +1,64 @@
-import { Fragment } from 'react'
+import { Fragment, useEffect } from 'react'
 import React from 'react';
 import axios from 'axios';
 import NavBar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Heads from '../components/Heads';
 import Image from 'next/image'
+import { useRouter } from 'next/router'
+import cookieCutter from 'cookie-cutter'
 
 // Login
 // CSR - React
 
 const Login = ({ user }): JSX => {
+  const router = useRouter()
+  // Similar to componentDidMount and componentDidUpdate:
+  useEffect(() => {
+    console.log("test");
+    // check cookies
+    // if have token cookie, login, check expiration date
+    // if expired, logout
+    // else, get userID from cookie, then, redirect to dashboard
+    console.log(cookieCutter.get('token'));
+    
+  });  
+  const userSubmit = async (e: React.ChangeEvent<HTMLInputElement>):void =>{
+    e.preventDefault()
+    const body = {
+      username : "user",
+      password : "pass",
+    }
+    interface Data {
+      error: Boolean;
+      msg: String;
+      loginResult: {
+        token: String;
+        userId: String;
+      }
+    }
+    interface Response{
+      status: Number;
+      statusText: String;
+      data: Data;
+    }
+    try {
+      const res:Response = await axios.post("https://jsonplaceholder.typicode.com/posts",body)
+      console.log(res);
+      if (res.status !== 201) {
+        console.log("Error Login")
+      }
+      else{
+        console.log("Success ! redirecting to dashboard ...");
+        router.push('/dashboard/summary')
+        // Set cookie for token and userID
+        cookieCutter.set('token', 'some-value')
+        cookieCutter.set('userId', 'user_id')
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
   return (
     <Fragment>
       <Heads />
@@ -54,7 +103,7 @@ const Login = ({ user }): JSX => {
         </div>
 
         <div>
-    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+    <button onClick={userSubmit} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
         Login
       </button>
         <h3 className='font-sans my-6'>Haven't created your account ? <a className='font-sans font-bold 

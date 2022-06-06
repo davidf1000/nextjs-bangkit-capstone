@@ -2,6 +2,8 @@ import { Fragment, useEffect, useState } from 'react'
 import NavBar from '../components/Navbar';
 import Heads from '../components/Heads';
 import Image from 'next/image';
+import { useRouter } from 'next/router'
+import cookieCutter from 'cookie-cutter'
 
 
 // Login
@@ -9,6 +11,55 @@ import Image from 'next/image';
 
 
 const Register = (): JSX => {
+  const router = useRouter()
+  // Similar to componentDidMount and componentDidUpdate:
+  useEffect(() => {
+    console.log("test");
+    // check cookies
+    // if have token cookie, login, check expiration date
+    // if expired, logout
+    // else, get userID from cookie, then, redirect to dashboard
+    console.log(cookieCutter.get('token'));
+    console.log(cookieCutter.get('userId'));
+    
+  });  
+  const userSubmit = async (e: React.ChangeEvent<HTMLInputElement>):void =>{
+    e.preventDefault()
+    const body = {
+      fullName : "fullname",
+      email : "email",
+      companyName : "companyName",
+      username : "user",
+      password : "pass",
+    }
+    interface Data {
+      error: Boolean;
+      msg: String;
+      loginResult: {
+        token: String;
+        userId: String;
+      }
+    }
+    interface Response{
+      status: Number;
+      statusText: String;
+      data: Data;
+    }
+    try {
+      const res:Response = await axios.post("https://jsonplaceholder.typicode.com/posts",body)
+      console.log(res);
+      if (res.status !== 201) {
+        console.log("Error Login")
+      }
+      else{
+        console.log("Success ! redirecting to login ...");
+        router.push('/login')
+        // Set cookie for token and userID
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }  
     return (
         <Fragment>
       <Heads />
@@ -71,7 +122,7 @@ const Register = (): JSX => {
         </div>
 
         <div>
-    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+    <button onClick={userSubmit} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
         Register
       </button>
         </div>
