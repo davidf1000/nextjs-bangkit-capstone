@@ -46,10 +46,10 @@ const Register = (): JSX => {
       data: Data;
     }
     try {
-      const res:Response = await axios.post("https://jsonplaceholder.typicode.com/posts",body)
+      const res:Response = await axios.post("api/login",body);
       console.log(res);
       if (res.status !== 201) {
-        console.log("Error Login")
+        console.log("Error Login");
       }
       else{
         console.log("Success ! redirecting to login ...");

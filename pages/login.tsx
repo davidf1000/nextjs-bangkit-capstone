@@ -29,28 +29,15 @@ const Login = ({ user }): JSX => {
       username : "user",
       password : "pass",
     }
-    interface Data {
-      error: Boolean;
-      msg: String;
-      loginResult: {
-        token: String;
-        userId: String;
-      }
-    }
-    interface Response{
-      status: Number;
-      statusText: String;
-      data: Data;
-    }
     try {
-      const res:Response = await axios.post("https://jsonplaceholder.typicode.com/posts",body)
+      const res:Response = await axios.post("api/login",body);
       console.log(res);
       if (res.status !== 201) {
         console.log("Error Login")
       }
       else{
         console.log("Success ! redirecting to dashboard ...");
-        router.push('/dashboard/summary')
+        // router.push('/dashboard/summary')
         // Set cookie for token and userID
         cookieCutter.set('token', 'some-value')
         cookieCutter.set('userId', 'user_id')
@@ -117,5 +104,7 @@ const Login = ({ user }): JSX => {
     </Fragment>
   );
 }
+
+
 
 export default Login;
