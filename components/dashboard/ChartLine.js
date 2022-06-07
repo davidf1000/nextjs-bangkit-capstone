@@ -113,10 +113,10 @@ export default function ChartLine() {
     return (
         <Card>
             <CardHeader color="orange" contentPosition="left">
-                <h6 className="uppercase text-gray-200 text-xs font-medium">
+                <h6 className="uppercase text-gray-700 text-xs font-medium">
                     Overview
                 </h6>
-                <h2 className="text-white text-2xl">Sales value</h2>
+                <h2 className="text-gray-600 text-2xl">Sales value</h2>
             </CardHeader>
             <CardBody>
                 <div className="relative h-96">

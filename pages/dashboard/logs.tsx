@@ -3,6 +3,7 @@ import Head from 'next/head'
 import { GetServerSideProps } from 'next'
 import Sidebar from '../../components/dashboard/Sidebar';
 import Footer from '../../components/Footer';
+import LogTable from '../../components/dashboard/LogTable';
 
 
 interface Todos {
@@ -24,7 +25,7 @@ const Logs = ({data}:{data:Todos[]}): JSX.Element => {
         <Sidebar location={"logs"} />
         <div className="md:ml-64">
           <div className="flex flex-col h-screen justify-between">
-            <h1 className="text-2xl text-gray-500">Content Here</h1>
+            <LogTable />
           </div>
           <Footer />
         </div>

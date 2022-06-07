@@ -8,7 +8,7 @@ import Team2 from 'assets/img/team-2-800x800.jpg';
 import Team3 from 'assets/img/team-3-800x800.jpg';
 import Team4 from 'assets/img/team-4-470x470.png';
 
-export default function CardTable() {
+const TableCard = (): JSX.Element => {
     return (
         <Card>
             <CardHeader color="purple" contentPosition="left">
@@ -232,3 +232,5 @@ export default function CardTable() {
         </Card>
     );
 }
+
+export default TableCard;

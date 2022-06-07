@@ -3,7 +3,7 @@ import CardHeader from '@material-tailwind/react/CardHeader';
 import CardBody from '@material-tailwind/react/CardBody';
 import Button from '@material-tailwind/react/Button';
 
-export default function PageVisitsCard() {
+const LogTable = (): JSX.Element => {
     return (
         <Card>
             <CardHeader color="blue" contentPosition="none">
@@ -24,17 +24,17 @@ export default function PageVisitsCard() {
                     <table className="items-center w-full bg-transparent border-collapse">
                         <thead>
                             <tr>
-                                <th className="px-2 text-teal-500 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap font-light text-left">
-                                    ID
+                                <th className="px-2 text-green-600 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap font-bold text-left">
+                                    No
                                 </th>
-                                <th className="px-2 text-teal-500 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap font-light text-left">
-                                    Name
+                                <th className="px-2 text-green-600 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap font-bold text-left">
+                                    User
                                 </th>
-                                <th className="px-2 text-teal-500 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap font-light text-left">
-                                    Salary
+                                <th className="px-2 text-green-600 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap font-bold text-left">
+                                    buyDate
                                 </th>
-                                <th className="px-2 text-teal-500 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap font-light text-left">
-                                    Country
+                                <th className="px-2 text-green-600 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap font-bold text-left">
+                                    Quantity
                                 </th>
                             </tr>
                         </thead>
@@ -102,3 +102,5 @@ export default function PageVisitsCard() {
         </Card>
     );
 }
+
+export default LogTable;

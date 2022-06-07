@@ -29,8 +29,56 @@ const Summary = ({ token }): JSX => {
       </Head>
       <Sidebar location={"Summary"} />
       <div className="md:ml-64">
-        <div className="flex flex-col h-screen justify-between">
-          <h1 className="text-2xl text-gray-500">Content Here</h1>
+        <div className="flex flex-col h-screen">
+        <div className="flex flex-row justify-between p-5">
+          {/* <h1 className="text-2xl text-gray-500">Content Here</h1> */}
+          <div className='w-1/2 m-2'>
+          <ChartBar />
+          </div>
+          <div className='w-1/2 m-2'>
+          <ChartLine />
+          </div>
+        </div>
+        <div className="flex flex-rowjustify-between p-5">
+          {/* <h1 className="text-2xl text-gray-500">Content Here</h1> */}
+          <div className='w-1/4 m-2'>
+          <StatusCard
+                            color="pink"
+                            icon="trending_up"
+                            title="Traffic"
+                            amount="350,897"
+                            percentage="3.48"
+                            percentageIcon="arrow_upward"
+                            percentageColor="green"
+                            date="Since last month"
+                        />            
+          </div>
+          <div className='w-1/4 m-2'>
+          <StatusCard
+                            color="pink"
+                            icon="trending_up"
+                            title="Traffic"
+                            amount="350,897"
+                            percentage="3.48"
+                            percentageIcon="arrow_upward"
+                            percentageColor="green"
+                            date="Since last month"
+                        />            
+          </div>
+          <div className='w-1/4 m-2'>
+          <StatusCard
+                            color="pink"
+                            icon="trending_up"
+                            title="Traffic"
+                            amount="350,897"
+                            percentage="3.48"
+                            percentageIcon="arrow_upward"
+                            percentageColor="green"
+                            date="Since last month"
+                        />            
+          </div>
+
+        </div>
         </div>
         <Footer />
       </div>
