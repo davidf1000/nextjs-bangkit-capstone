@@ -6,7 +6,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     // axios post to login 
     const resp:Response = await axios.post("https://jsonplaceholder.typicode.com/posts",req.body)
     if (resp.status !== 201) {
-      console.log("Error Login")
+      console.log("Error register")
       res.status(500).json({ error: 'API Handler Error' })
       return
     }

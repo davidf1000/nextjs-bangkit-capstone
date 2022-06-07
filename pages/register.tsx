@@ -1,136 +1,232 @@
-import { Fragment, useEffect, useState } from 'react'
-import NavBar from '../components/Navbar';
-import Heads from '../components/Heads';
-import Image from 'next/image';
-import { useRouter } from 'next/router'
-import cookieCutter from 'cookie-cutter'
-
-
+import { Fragment, useEffect, useState } from "react";
+import NavBar from "../components/Navbar";
+import Heads from "../components/Heads";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import cookieCutter from "cookie-cutter";
+import axios from 'axios';
+import Footer from "../components/Footer";
 // Login
 // CSR - React
 
-
 const Register = (): JSX => {
-  const router = useRouter()
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    companyName: "",
+    userName: "",
+    password: "",
+  });
+  const [alert, setAlert] = useState("");
+  const { fullName, email, companyName, userName, password } = formData;
   // Similar to componentDidMount and componentDidUpdate:
   useEffect(() => {
-    console.log("test");
-    // check cookies
-    // if have token cookie, login, check expiration date
-    // if expired, logout
-    // else, get userID from cookie, then, redirect to dashboard
-    console.log(cookieCutter.get('token'));
-    console.log(cookieCutter.get('userId'));
-    
-  });  
-  const userSubmit = async (e: React.ChangeEvent<HTMLInputElement>):void =>{
-    e.preventDefault()
+    console.log("Register UseEffect");
+  });
+  const alertClose = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setAlert("");
+  };
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const userSubmit = async (e: React.ChangeEvent<HTMLInputElement>): void => {
+    e.preventDefault();
+    setLoading(true);
     const body = {
-      fullName : "fullname",
-      email : "email",
-      companyName : "companyName",
-      username : "user",
-      password : "pass",
-    }
+      fullName,
+      email,
+      companyName,
+      userName,
+      password,
+    };
+    console.log("input", body);
     interface Data {
       error: Boolean;
       msg: String;
       loginResult: {
         token: String;
         userId: String;
-      }
+      };
     }
-    interface Response{
+    interface Response {
       status: Number;
       statusText: String;
       data: Data;
     }
     try {
-      const res:Response = await axios.post("api/login",body);
+      const res: Response = await axios.post("api/register", body);
       console.log(res);
       if (res.status !== 201) {
-        console.log("Error Login");
-      }
-      else{
+        console.log("Error Register");
+        setAlert("Error Register");
+        setLoading(false);        
+      } else {
+        setLoading(false);
         console.log("Success ! redirecting to login ...");
-        router.push('/login')
-        // Set cookie for token and userID
+        // delete cookie 
+        cookieCutter.set('token','',{expires: new Date(0)})
+        cookieCutter.set('userId','',{expires: new Date(0)})
+        router.push("/login");
       }
     } catch (err) {
-      console.log(err)
+      setAlert(err.toString());
+      setLoading(false);
+      console.log(err);
     }
-  }  
-    return (
-        <Fragment>
+  };
+  return (
+    <Fragment>
       <Heads />
-          <style jsx global>{`
+      <style jsx global>{`
   body {
     background: #86efac};
   }
-`}</style>          
-          <NavBar login={true} />
-          <div className="flex rounded bg-white mx-auto my-12 w-3/4" >
+`}</style>
+        <div className="flex flex-col h-screen justify-between">
+      <NavBar login={true} />
+      <div className="flex rounded bg-white mx-auto my-12 w-3/4">
         <div className="container rounded bg-slate-500 rounded">
-      <Image
-      layout='responsive'
-      src="/images/register.jpg"
-      alt="Ecotrans Login Page"
-      width={500}
-      height={500}
-    />
-      </div>
-    <div className="container rounded-xl bg-white">
-      <div className="flex flex-col text-center justify-between">
-        <div>
-          <h1 className='text-5xl font-sans mt-10 mb-8'>Register your account</h1>
+          <img
+            className="object-cover rounded h-full"
+            src="/images/register.jpg"
+          />
         </div>
-        <div className='my-1'>
-        <form className="bg-white rounded px-8 pt-6 pb-8 mb-2">
-        <div className="mb-2">
-      <label className="block text-gray-700 text-sm font-bold mb-2" for="fullname">
-        Fullname
-      </label>
-      <input className='shadow appearance-none border rounded w-1/2" py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' id="fullname" type="text" placeholder="Fullname" />
-    </div>
-    <div className="mb-2">
-      <label className="block text-gray-700 text-sm font-bold mb-2" for="email">
-        Email
-      </label>
-      <input className='shadow appearance-none border rounded w-1/2" py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' id="email" type="text" placeholder="Email" />
-    </div>
-    <div className="mb-2">
-      <label className="block text-gray-700 text-sm font-bold mb-2" for="Company Name">
-        Company Name
-      </label>
-      <input className='shadow appearance-none border rounded w-1/2" py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' id="company" type="text" placeholder="Company Name" />
-    </div>  
-    <div className="mb-2">
-      <label className="block text-gray-700 text-sm font-bold mb-2" for="username">
-        Username
-      </label>
-      <input className='shadow appearance-none border rounded w-1/2" py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' id="username" type="text" placeholder="Username" />
-    </div>      
-    <div className="mb-6">
-      <label className="block text-gray-700 text-sm font-bold mb-0" for="password">
-        Password
-      </label>
-      <input className='shadow appearance-none border rounded w-1/2" py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline' id="password" type="password" placeholder="******************" />
-    </div>
-    <div className="flex items-center justify-between">
-    </div>
-  </form>          
-        </div>
+        <div className="container rounded-xl bg-white">
+          <div className="flex flex-col text-center justify-between">
+            <div>
+              <h1 className="text-5xl font-sans mt-10 mb-8">
+                Register your account
+              </h1>
+            </div>
+            <div className="my-1">
+              <form className="bg-white rounded px-8 pt-6 pb-8 mb-2">
+                <div className="mb-2">
+                  <label
+                    className="block text-gray-700 text-sm font-bold mb-2"
+                    for="fullname"
+                  >
+                    Fullname
+                  </label>
+                  <input
+                    className='shadow appearance-none border rounded w-1/2" py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                    id="fullname"
+                    type="text"
+                    placeholder="Fullname"
+                    label="fullname"
+                    name="fullName"
+                    value={fullName}
+                    onChange={(e) => onChange(e)}                    
+                  />
+                </div>
+                <div className="mb-2">
+                  <label
+                    className="block text-gray-700 text-sm font-bold mb-2"
+                    for="email"
+                  >
+                    Email
+                  </label>
+                  <input
+                    className='shadow appearance-none border rounded w-1/2" py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                    id="email"
+                    type="text"
+                    placeholder="Email"
+                    label="email"
+                    name="email"
+                    value={email}
+                    onChange={(e) => onChange(e)}                         
+                  />
+                </div>
+                <div className="mb-2">
+                  <label
+                    className="block text-gray-700 text-sm font-bold mb-2"
+                    for="Company Name"
+                  >
+                    Company Name
+                  </label>
+                  <input
+                    className='shadow appearance-none border rounded w-1/2" py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                    id="company"
+                    type="text"
+                    placeholder="Company Name"
+                    label="companyName"
+                    name="companyName"
+                    value={companyName}
+                    onChange={(e) => onChange(e)}                      
+                  />
+                </div>
+                <div className="mb-2">
+                  <label
+                    className="block text-gray-700 text-sm font-bold mb-2"
+                    for="username"
+                  >
+                    Username
+                  </label>
+                  <input
+                    className='shadow appearance-none border rounded w-1/2" py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                    id="username"
+                    type="text"
+                    placeholder="Username"
+                    label="userName"
+                    name="userName"
+                    value={userName}
+                    onChange={(e) => onChange(e)}                          
+                  />
+                </div>
+                <div className="mb-6">
+                  <label
+                    className="block text-gray-700 text-sm font-bold mb-0"
+                    for="password"
+                  >
+                    Password
+                  </label>
+                  <input
+                    className='shadow appearance-none border rounded w-1/2" py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline'
+                    id="password"
+                    type="password"
+                    placeholder="******************"
+                    label="password"
+                    name="password"
+                    value={password}
+                    onChange={(e) => onChange(e)}                             
+                  />
+                </div>
+                <div className="flex items-center justify-between"></div>
+              </form>
+            </div>
 
-        <div>
-    <button onClick={userSubmit} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
-        Register
-      </button>
+            <div>
+              { loading ? 
+                              <div className="flex items-center justify-center ">
+                              <div className="w-16 h-16 border-b-2 border-gray-900 rounded-full animate-spin"></div>
+                            </div>
+                            :
+                            <button
+                            onClick={userSubmit}
+                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            type="button"
+                          >
+                            Register
+                          </button>
+              }
+
+            </div>
+            {alert &&             <div className="bg-red-100 border mx-4 border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+  <span className="block sm:inline">{alert}</span>
+  <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
+    <svg onClick={alertClose} className="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+  </span>
+</div>}
+          </div>
         </div>
       </div>
-    </div>
+      <Footer />
       </div>
-        </Fragment>
-      );
-}
+    </Fragment>
+  );
+};
 
 export default Register;

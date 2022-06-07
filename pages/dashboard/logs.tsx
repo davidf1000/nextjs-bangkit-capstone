@@ -1,6 +1,8 @@
 import { Fragment } from 'react'
 import Head from 'next/head'
 import { GetServerSideProps } from 'next'
+import Sidebar from '../../components/dashboard/Sidebar';
+import Footer from '../../components/Footer';
 
 
 interface Todos {
@@ -13,16 +15,20 @@ interface Todos {
 // Dashboard - Logs
 // SSR
 
-const Logs = ({data}:{data:Todos[]}): JSX => {
+const Logs = ({data}:{data:Todos[]}): JSX.Element => {
     return (
         <Fragment>
-            <Head>
-                <title>"EcoTrans Website"</title>
-            </Head>
-            <h1 className="text-5xl text-center font-bold underline">Logs Page</h1>
-            {data.map((item)=><li>{item.userId}</li>)}
-            {/* <h5>{data.toString()}</h5> */}
-        </Fragment>
+        <Head>
+          <title>EcoTrans Website</title>
+        </Head>
+        <Sidebar location={"Summary"} />
+        <div className="md:ml-64">
+          <div className="flex flex-col h-screen justify-between">
+            <h1 className="text-2xl text-gray-500">Content Here</h1>
+          </div>
+          <Footer />
+        </div>
+      </Fragment>
     );
 }
 
