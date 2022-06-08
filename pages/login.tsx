@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useState } from "react";
 import React from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import NavBar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Heads from "../components/Heads";
@@ -10,6 +10,16 @@ import cookieCutter from "cookie-cutter";
 
 // Login
 // CSR - React
+
+interface ApiResponse{
+  status: number;
+  data:{
+    error: boolean;
+    msg: string;
+    partnerId: string;
+    token: string;
+  }
+}
 
 const Login = ({ user }): JSX.Element => {
   const router = useRouter();
@@ -50,25 +60,28 @@ const Login = ({ user }): JSX.Element => {
     console.log(formData);
 
     const body = {
-      username: "user",
-      password: "pass",
+      username,
+      password
     };
     try {
-      const res: Response = await axios.post("api/login", body);
+      const res: ApiResponse = await axios.post("api/login", body);
       console.log(res);
-      if (res.status !== 201) {
+      if (res.status !== 200) {
         console.log("Error Login");
-        setAlert("Error Login");
+        setAlert(res.data.msg);
         setLoading(false);
       } else {
         console.log("Success ! redirecting to dashboard ...");
+        console.log(res.data);
         // Set cookie for token and userID
-        cookieCutter.set("token", "some-value");
-        cookieCutter.set("userId", "user_id");
+        cookieCutter.set("token", res.data.token);
+        cookieCutter.set("userId", res.data.partnerId);
         router.push("/dashboard/summary");
       }
-    } catch (err) {
+    } catch (err: Error | AxiosError) {
       console.log(err);
+      setAlert(err.message);
+      setLoading(false);      
     }
   };
   return (
