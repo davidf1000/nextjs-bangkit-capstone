@@ -6,6 +6,7 @@ import Footer from "../../components/Footer";
 import Modal from "../../components/dashboard/voucher/Modal";
 import createVouchers from "../../actions/fetchVoucher";
 import VoucherCard from "../../components/dashboard/voucher/VoucherCard";
+import cookies from 'next-cookies';
 
 interface Todos {
   userId: number;
@@ -83,10 +84,21 @@ const Voucher = ({ vouchers }:{vouchers:Voucher[]}): JSX.Element => {
 };
 
 // This gets called on every request
-export async function getServerSideProps() {
+export async function getServerSideProps(ctx) {
+  // Cookies
+  const allCookies: Cookies = cookies(ctx);
+  // If no token or no user, redirect 
+  if (!allCookies.token || !allCookies.userId ){
+    console.log("cookies missing, redirecting...");
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/login",
+      },
+      props:{},
+    };
+  }
   // Fetch data from external API
-  const res = await fetch(`https://jsonplaceholder.typicode.com/posts`);
-  const data = await res.json();
   const vouchers = createVouchers();
   // Pass data to the page via props
   return { props: { vouchers } };

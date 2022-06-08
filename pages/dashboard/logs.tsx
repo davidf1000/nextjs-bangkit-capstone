@@ -4,6 +4,7 @@ import { GetServerSideProps } from 'next'
 import Sidebar from '../../components/dashboard/Sidebar';
 import Footer from '../../components/Footer';
 import LogTable from '../../components/dashboard/LogTable';
+import cookies from 'next-cookies';
 
 
 interface Todos {
@@ -33,13 +34,28 @@ const Logs = ({data}:{data:Todos[]}): JSX.Element => {
     );
 }
 
+interface Cookies{
+  "token":string;
+  "userId":string;
+}
 // This gets called on every request
-export async function getServerSideProps() {
-    // Fetch data from external API
-    const res = await fetch(`https://jsonplaceholder.typicode.com/posts`)
-    const data = await res.json()
-  
-    // Pass data to the page via props
-    return { props: { data } }
+export async function getServerSideProps(ctx) {
+  // Cookies
+  const allCookies: Cookies = cookies(ctx);
+  // If no token or no user, redirect 
+  if (!allCookies.token || !allCookies.userId ){
+    console.log("cookies missing, redirecting...");
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/login",
+      },
+      props:{},
+    };
   }
+  // Fetch data from external API
+
+  // Pass data to the page via props
+  return { props: {  } };
+}
 export default Logs;

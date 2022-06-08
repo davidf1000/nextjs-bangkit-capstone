@@ -6,6 +6,9 @@ import ChartLine from "../../components/dashboard/ChartLine";
 import ChartBar from "../../components/dashboard/ChartBar";
 import Sidebar from "../../components/dashboard/Sidebar";
 import Footer from "../../components/Footer";
+import cookies from 'next-cookies'
+import { useRouter } from "next/router";
+
 
 interface Todos {
   userId: number;
@@ -17,7 +20,7 @@ interface Todos {
 // Dashboard - Summary
 // SSR
 
-const Summary = ({ token }): JSX.Element => {
+const Summary = ({  }): JSX.Element => {
   return (
     <Fragment>
       <Head>
@@ -82,17 +85,30 @@ const Summary = ({ token }): JSX.Element => {
   );
 };
 
+
+interface Cookies{
+  "token":string;
+  "userId":string;
+}
 // This gets called on every request
-export async function getServerSideProps({ req, res }) {
-  // Fetch data from external API
-  const res1 = await fetch(`https://jsonplaceholder.typicode.com/posts`);
+export async function getServerSideProps(ctx) {
   // Cookies
-  const resp = await axios.get(`http://localhost:3000/api/load`, {
-    headers: {
-      Cookie: req.headers.cookie,
-    },
-  });
+  const allCookies: Cookies = cookies(ctx);
+  // If no token or no user, redirect 
+  if (!allCookies.token || !allCookies.userId ){
+    console.log("cookies missing, redirecting...");
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/login",
+      },
+      props:{},
+    };
+  }
+  // Fetch data from external API
+
   // Pass data to the page via props
-  return { props: { token: req.cookies.token } };
+  return { props: {  } };
 }
 export default Summary;
+
