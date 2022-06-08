@@ -140,7 +140,7 @@ const Login = ({ user }): JSX.Element => {
                   </div>
                 ) : (
                   <button
-                    onClick={(e)=>userSubmit}
+                    onClick={(e)=>{userSubmit(e)}}
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     type="button"
                   >
@@ -167,7 +167,7 @@ const Login = ({ user }): JSX.Element => {
                   <span className="block sm:inline">{alert}</span>
                   <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
                     <svg
-                      onClick={e=>(alertClose)}
+                      onClick={e=>alertClose(e)}
                       className="fill-current h-6 w-6 text-red-500"
                       role="button"
                       xmlns="http://www.w3.org/2000/svg"
