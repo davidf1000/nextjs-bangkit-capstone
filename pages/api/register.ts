@@ -3,23 +3,26 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import cookie from "cookie";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-    // axios post to login 
-    const resp:Response = await axios.post("https://jsonplaceholder.typicode.com/posts",req.body)
+  try{
+    const resp:Response = await axios.post("https://backend-capstone-h3lwczj22a-et.a.run.app/company/register",req.body)
     if (resp.status !== 201) {
-      console.log("Error register")
-      res.status(500).json({ error: 'API Handler Error' })
+      console.log("Error Login")
       return
     }
-    res.status(201).json({...req.body,success:true});
+  res.status(201).json(resp.data);
+  }
+  catch(e : Error | AxiosError){
+    console.log("ERROR with message", e.message);
+    
+    res.status(500).json({ error: e.message })
+  }
+
   }
 
 interface Data {
   error: Boolean;
-  msg: String;
-  loginResult: {
-    token: String;
-    userId: String;
-  }
+  msg?: String;
+  status?: String;
 }
 interface Response{
   status: Number;

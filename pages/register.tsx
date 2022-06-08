@@ -8,19 +8,25 @@ import axios from 'axios';
 import Footer from "../components/Footer";
 // Login
 // CSR - React
-
+interface ApiResponse{
+  status: number;
+  data:{
+    error: Boolean;
+    msg?: String;
+    status?: String;
+  }
+}
 const Register = (): JSX.Element => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    fullName: "",
     email: "",
     companyName: "",
     userName: "",
     password: "",
   });
   const [alert, setAlert] = useState("");
-  const { fullName, email, companyName, userName, password } = formData;
+  const { email, companyName, userName, password } = formData;
   // Similar to componentDidMount and componentDidUpdate:
   useEffect(() => {
     console.log("Register UseEffect");
@@ -37,32 +43,17 @@ const Register = (): JSX.Element => {
     e.preventDefault();
     setLoading(true);
     const body = {
-      fullName,
       email,
-      companyName,
-      userName,
+      partnerName: companyName,
+      username: userName,
       password,
     };
-    console.log("input", body);
-    interface Data {
-      error: Boolean;
-      msg: String;
-      loginResult: {
-        token: String;
-        userId: String;
-      };
-    }
-    interface Response {
-      status: Number;
-      statusText: String;
-      data: Data;
-    }
     try {
-      const res: Response = await axios.post("api/register", body);
+      const res: ApiResponse = await axios.post("api/register", body);
       console.log(res);
       if (res.status !== 201) {
         console.log("Error Register");
-        setAlert("Error Register");
+        setAlert(res.data.msg || res.data.status);
         setLoading(false);        
       } else {
         setLoading(false);
@@ -72,10 +63,11 @@ const Register = (): JSX.Element => {
         cookieCutter.set('userId','',{expires: new Date(0)})
         router.push("/login");
       }
-    } catch (err) {
-      setAlert(err.toString());
+    } catch (err : Error | AxiosError) {
+      console.log("ERROR");
+      
+      setAlert(err.message);
       setLoading(false);
-      console.log(err);
     }
   };
   return (
@@ -104,23 +96,6 @@ const Register = (): JSX.Element => {
             </div>
             <div className="my-1">
               <form className="bg-white rounded px-8 pt-6 pb-8 mb-2">
-                <div className="mb-2">
-                  <label
-                    className="block text-gray-700 text-sm font-bold mb-2"
-                    htmlFor="fullname"
-                  >
-                    Fullname
-                  </label>
-                  <input
-                    className='shadow appearance-none border rounded w-1/2" py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-                    id="fullname"
-                    type="text"
-                    placeholder="Fullname"
-                    name="fullName"
-                    value={fullName}
-                    onChange={(e) => onChange(e)}                    
-                  />
-                </div>
                 <div className="mb-2">
                   <label
                     className="block text-gray-700 text-sm font-bold mb-2"
