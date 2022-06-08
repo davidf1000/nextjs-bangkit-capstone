@@ -552,12 +552,12 @@ const Content = ():JSX.Element => (
                       >
                         Message
                       </label>
-                      <textarea
+                      {/* <textarea
                         rows="4"
                         cols="80"
                         className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
                         placeholder="Type a message..."
-                      />
+                      /> */}
                     </div>
                     <div className="text-center mt-6">
                       <button

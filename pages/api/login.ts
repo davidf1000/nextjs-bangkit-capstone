@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { NextApiResponse } from 'next'
+import { NextApiRequest, NextApiResponse } from 'next'
 import cookie from "cookie";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {

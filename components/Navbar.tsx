@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Fragment } from 'react';
 
-const NavBar = ({ login }: { login: bool }): JSX.Element => (
+const NavBar = ({ login }: { login: boolean }): JSX.Element => (
 <Fragment>
 <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800">
   <div className="container flex flex-wrap justify-between items-center mx-auto">

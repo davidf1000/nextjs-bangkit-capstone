@@ -1,6 +1,7 @@
 
 import { getCookie } from 'cookies-next';
 import { getCookies, setCookies, removeCookies } from 'cookies-next';
+import { NextApiRequest, NextApiResponse } from 'next';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     // get Cookies 

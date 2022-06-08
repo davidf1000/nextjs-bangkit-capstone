@@ -9,7 +9,7 @@ import Footer from "../components/Footer";
 // Login
 // CSR - React
 
-const Register = (): JSX => {
+const Register = (): JSX.Element => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -33,7 +33,7 @@ const Register = (): JSX => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const userSubmit = async (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const userSubmit = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setLoading(true);
     const body = {
@@ -107,7 +107,7 @@ const Register = (): JSX => {
                 <div className="mb-2">
                   <label
                     className="block text-gray-700 text-sm font-bold mb-2"
-                    for="fullname"
+                    htmlFor="fullname"
                   >
                     Fullname
                   </label>
@@ -116,7 +116,6 @@ const Register = (): JSX => {
                     id="fullname"
                     type="text"
                     placeholder="Fullname"
-                    label="fullname"
                     name="fullName"
                     value={fullName}
                     onChange={(e) => onChange(e)}                    
@@ -125,7 +124,7 @@ const Register = (): JSX => {
                 <div className="mb-2">
                   <label
                     className="block text-gray-700 text-sm font-bold mb-2"
-                    for="email"
+                    htmlFor="email"
                   >
                     Email
                   </label>
@@ -134,7 +133,6 @@ const Register = (): JSX => {
                     id="email"
                     type="text"
                     placeholder="Email"
-                    label="email"
                     name="email"
                     value={email}
                     onChange={(e) => onChange(e)}                         
@@ -143,7 +141,7 @@ const Register = (): JSX => {
                 <div className="mb-2">
                   <label
                     className="block text-gray-700 text-sm font-bold mb-2"
-                    for="Company Name"
+                    htmlFor="Company Name"
                   >
                     Company Name
                   </label>
@@ -152,7 +150,6 @@ const Register = (): JSX => {
                     id="company"
                     type="text"
                     placeholder="Company Name"
-                    label="companyName"
                     name="companyName"
                     value={companyName}
                     onChange={(e) => onChange(e)}                      
@@ -161,7 +158,7 @@ const Register = (): JSX => {
                 <div className="mb-2">
                   <label
                     className="block text-gray-700 text-sm font-bold mb-2"
-                    for="username"
+                    htmlFor="username"
                   >
                     Username
                   </label>
@@ -170,7 +167,6 @@ const Register = (): JSX => {
                     id="username"
                     type="text"
                     placeholder="Username"
-                    label="userName"
                     name="userName"
                     value={userName}
                     onChange={(e) => onChange(e)}                          
@@ -179,7 +175,7 @@ const Register = (): JSX => {
                 <div className="mb-6">
                   <label
                     className="block text-gray-700 text-sm font-bold mb-0"
-                    for="password"
+                    htmlFor="password"
                   >
                     Password
                   </label>
@@ -188,7 +184,6 @@ const Register = (): JSX => {
                     id="password"
                     type="password"
                     placeholder="******************"
-                    label="password"
                     name="password"
                     value={password}
                     onChange={(e) => onChange(e)}                             
@@ -205,7 +200,7 @@ const Register = (): JSX => {
                             </div>
                             :
                             <button
-                            onClick={userSubmit}
+                            onClick={e=>(userSubmit)}
                             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                             type="button"
                           >
@@ -217,7 +212,7 @@ const Register = (): JSX => {
             {alert &&             <div className="bg-red-100 border mx-4 border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
   <span className="block sm:inline">{alert}</span>
   <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
-    <svg onClick={alertClose} className="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+    <svg onClick={(e)=>alertClose} className="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
   </span>
 </div>}
           </div>

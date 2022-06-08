@@ -29,7 +29,7 @@ export interface Voucher {
 // Dashboard - Voucher
 // SSR
 
-const Voucher = ({ vouchers }:{vouchers:Voucher[]}): JSX => {
+const Voucher = ({ vouchers }:{vouchers:Voucher[]}): JSX.Element => {
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
     partnerName: "",

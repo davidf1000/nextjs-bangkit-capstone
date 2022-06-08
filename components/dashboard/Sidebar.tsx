@@ -36,7 +36,7 @@ const Sidebar = ({ location }:{location:string}):JSX.Element => {
                 <Link
                   href="/dashboard/summary"
                   className="flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
-                  activeClassName="bg-gradient-to-tr from-light-blue-500 to-light-blue-700 text-white shadow-md"
+                  // activeClassName="bg-gradient-to-tr from-light-blue-500 to-light-blue-700 text-white shadow-md"
                 >
                 <div className="cursor-pointer">
                 <svg
@@ -62,7 +62,7 @@ const Sidebar = ({ location }:{location:string}):JSX.Element => {
                 <Link
                   href="/dashboard/voucher"
                   className="flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
-                  activeClassName="bg-gradient-to-tr from-light-blue-500 to-light-blue-700 text-white shadow-md"
+                  // activeClassName="bg-gradient-to-tr from-light-blue-500 to-light-blue-700 text-white shadow-md"
                 >
                 <div className="cursor-pointer">
                 <svg
@@ -88,7 +88,7 @@ const Sidebar = ({ location }:{location:string}):JSX.Element => {
                 <Link
                   href="/dashboard/logs"
                   className="flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
-                  activeClassName="bg-gradient-to-tr from-light-blue-500 to-light-blue-700 text-white shadow-md"
+                  // activeClassName="bg-gradient-to-tr from-light-blue-500 to-light-blue-700 text-white shadow-md"
                 >
                 <div className="cursor-pointer">
                 <svg

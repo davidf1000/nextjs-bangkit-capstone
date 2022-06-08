@@ -46,7 +46,6 @@ const Modal = ({add,formData,setFormData,setShowModal}): JSX.Element => {
                       id="partnerName"
                       type="text"
                       placeholder="partnerName"
-                      label="partnerName"
                       name="partnerName"
                       value={partnerName}
                       onChange={(e) => onChange(e)}
@@ -64,7 +63,6 @@ const Modal = ({add,formData,setFormData,setShowModal}): JSX.Element => {
                       id="voucherName"
                       type="text"
                       placeholder="voucherName"
-                      label="voucherName"
                       name="voucherName"
                       value={voucherName}
                       onChange={(e) => onChange(e)}

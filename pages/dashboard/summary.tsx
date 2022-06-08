@@ -1,13 +1,9 @@
 import { Fragment } from "react";
 import Head from "next/head";
-import Cookies from "cookies";
-import { NextApiResponse } from "next";
 import axios from "axios";
 import StatusCard from "../../components/dashboard/StatusCard";
 import ChartLine from "../../components/dashboard/ChartLine";
 import ChartBar from "../../components/dashboard/ChartBar";
-import PageVisitsCard from "../../components/dashboard/PageVisitsCard";
-import TrafficCard from "../../components/dashboard/TrafficCard";
 import Sidebar from "../../components/dashboard/Sidebar";
 import Footer from "../../components/Footer";
 
@@ -21,7 +17,7 @@ interface Todos {
 // Dashboard - Summary
 // SSR
 
-const Summary = ({ token }): JSX => {
+const Summary = ({ token }): JSX.Element => {
   return (
     <Fragment>
       <Head>

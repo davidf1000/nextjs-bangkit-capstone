@@ -11,7 +11,7 @@ import cookieCutter from "cookie-cutter";
 // Login
 // CSR - React
 
-const Login = ({ user }): JSX => {
+const Login = ({ user }): JSX.Element => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -44,7 +44,7 @@ const Login = ({ user }): JSX => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const userSubmit = async (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const userSubmit = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setLoading(true);
     console.log(formData);
@@ -107,7 +107,6 @@ const Login = ({ user }): JSX => {
                       id="username"
                       type="text"
                       placeholder="Username"
-                      label="username"
                       name="username"
                       value={username}
                       onChange={(e) => onChange(e)}
@@ -125,7 +124,6 @@ const Login = ({ user }): JSX => {
                       id="password"
                       type="password"
                       placeholder="******************"
-                      label="password"
                       name="password"
                       value={password}
                       onChange={(e) => onChange(e)}
@@ -142,7 +140,7 @@ const Login = ({ user }): JSX => {
                   </div>
                 ) : (
                   <button
-                    onClick={userSubmit}
+                    onClick={(e)=>userSubmit}
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     type="button"
                   >
@@ -169,7 +167,7 @@ const Login = ({ user }): JSX => {
                   <span className="block sm:inline">{alert}</span>
                   <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
                     <svg
-                      onClick={alertClose}
+                      onClick={e=>(alertClose)}
                       className="fill-current h-6 w-6 text-red-500"
                       role="button"
                       xmlns="http://www.w3.org/2000/svg"

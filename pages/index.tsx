@@ -15,7 +15,7 @@ const Home = ({
   return (
     <Fragment>
       <Heads />
-      <Landing login={false}/>
+      <Landing/>
     </Fragment>
   );
 }
