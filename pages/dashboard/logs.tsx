@@ -24,7 +24,7 @@ const Logs = ({data}:{data:Todos[]}): JSX.Element => {
           <title>EcoTrans Website</title>
         </Head>
         <Sidebar location={"logs"} />
-        <div className="md:ml-64">
+        <div className="md:ml-52">
           <div className="flex flex-col h-screen justify-between">
             <LogTable />
           </div>

@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { Voucher } from "../../../pages/dashboard/voucher";
 
-const VoucherCard = ({voucher}:{voucher:Voucher}): JSX.Element => {
+const VoucherCard = ({voucher, editVoucher, deleteVoucher}:{voucher:Voucher}): JSX.Element => {
   const backStyle = {
     backgroundImage: "url("+voucher.imageUrl+")",
     backgroundColor: "#cccccc",
@@ -32,11 +32,13 @@ const VoucherCard = ({voucher}:{voucher:Voucher}): JSX.Element => {
 
       <div className="flex items-center justify-center my-2">
       <button
+      onClick={e=>{editVoucher(e,voucher.voucherId)}}
         className="inline-flex mx-3 items-center py-2 px-3 text-sm font-medium text-center text-white bg-amber-400 rounded-lg hover:bg-amber-800 focus:ring-4 focus:outline-none focus:ring-amber-300 dark:bg-amber-600 dark:hover:bg-amber-700 dark:focus:ring-amber-800"
       >
         Edit
       </button>                
       <button
+      onClick={e=>{deleteVoucher(e,voucher.voucherId)}}
         className="inline-flex mx-3 items-center py-2 px-3 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
       >
         Delete

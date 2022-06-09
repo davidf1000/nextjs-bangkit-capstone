@@ -9,13 +9,6 @@ import VoucherCard from "../../components/dashboard/voucher/VoucherCard";
 import cookies from 'next-cookies';
 import { useRouter } from "next/router";
 
-interface Todos {
-  userId: number;
-  id: number;
-  title: string;
-  body: string;
-}
-
 export interface Voucher {
   voucherId: string;
   partnerId: string;
@@ -32,6 +25,8 @@ export interface Voucher {
 // SSR
 
 const Voucher = ({ vouchers }:{vouchers:Voucher[]}): JSX.Element => {
+  const router = useRouter();
+
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
     partnerName: "",
@@ -44,8 +39,13 @@ const Voucher = ({ vouchers }:{vouchers:Voucher[]}): JSX.Element => {
   });
   const editVoucher = (e: React.ChangeEvent<HTMLInputElement>, id:string):void =>{
     e.preventDefault()
+    console.log("will edit voucher with ID: ",id);
+    // router.reload()
+  }
+  const deleteVoucher = (e: React.ChangeEvent<HTMLInputElement>, id:string):void =>{
+    e.preventDefault()
     console.log("will delete voucher with ID: ",id);
-    
+    router.reload()
   }
   return (
     <Fragment>
@@ -53,7 +53,7 @@ const Voucher = ({ vouchers }:{vouchers:Voucher[]}): JSX.Element => {
         <title>EcoTrans Website</title>
       </Head>
       <Sidebar location={"Voucher"} />
-      <div className="md:ml-64">
+      <div className="md:ml-52">
         <div className="flex flex-col h-screen items-center">
         <button
               className="bg-green-600 hover:bg-green-100 text-white hover:text-green-600 font-bold py-2 px-4 border border-white hover:border-green-600 rounded-lg my-4"
@@ -76,7 +76,10 @@ const Voucher = ({ vouchers }:{vouchers:Voucher[]}): JSX.Element => {
             {/* Card of Voucher */}
             {/* <h6>{JSON.stringify(vouchers)}</h6> */}
             {vouchers.map(voucher=>(
-            <VoucherCard voucher={voucher}/>
+            <VoucherCard voucher={voucher}
+            editVoucher={editVoucher}
+            deleteVoucher={deleteVoucher}
+            />
             ))}
             {/*  */}
             <div className="flex flex-wrap"></div>
