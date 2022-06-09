@@ -19,12 +19,10 @@ const Content = ():JSX.Element => (
                 <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
                   <div className="pr-12">
                     <h1 className="text-white font-semibold text-5xl">
-                      Your story starts with us.
+                      Start your eco-friendly journey today !
                     </h1>
                     <p className="mt-4 text-lg text-gray-300">
-                      This is a simple example of a Landing Page you can build
-                      using Tailwind Starter Kit. It features multiple CSS
-                      components based on the Tailwindcss design system.
+                      Contribute on saving the earth by becoming our business partner.
                     </p>
                   </div>
                 </div>
@@ -103,13 +101,10 @@ const Content = ():JSX.Element => (
             </div>
 
 
-            <div className="flex flex-wrap items-center mt-32">
-              <div className="w-full md:w-5/12 px-4 mr-auto ml-auto">
-                <div className="text-gray-600 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-gray-100">
-                  <i className="fas fa-user-friends text-xl"></i>
-                </div>
-                <h3 className="text-3xl mb-2 font-semibold leading-normal">
-                  Working with us is a pleasure
+            <div className="flex flex-wrap items-center mt-10">
+              <div className="w-full md:w-10/12 px-4 mr-auto ml-auto">
+                <h3 className="text-3xl text-center mb-2 font-semibold leading-normal">
+                  About Us
                 </h3>
                 <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-gray-700">
                   Don't let your uses guess by attaching tooltips and popoves
@@ -122,14 +117,8 @@ const Content = ():JSX.Element => (
                   you're good to go. Just make sure you enable them first via
                   JavaScript.
                 </p>
-                <a
-                  href="https://www.creative-tim.com/learning-lab/tailwind-starter-kit#/presentation"
-                  className="font-bold text-gray-800 mt-8"
-                >
-                  Check Tailwind Starter Kit!
-                </a>
               </div>
-
+{/* 
               <div className="w-full md:w-4/12 px-4 mr-auto ml-auto">
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-pink-600">
                   <img
@@ -163,7 +152,7 @@ const Content = ():JSX.Element => (
                     </p>
                   </blockquote>
                 </div>
-              </div>
+              </div> */}
 
             </div>
           </div>

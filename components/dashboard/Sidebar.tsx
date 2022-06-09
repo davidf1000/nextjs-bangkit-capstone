@@ -5,7 +5,7 @@ import Icon from "@material-tailwind/react/Icon";
 import H6 from "@material-tailwind/react/Heading6";
 
 const Sidebar = ({ location }:{location:string}):JSX.Element => {
-  const [showSidebar, setShowSidebar] = useState("-left-64");
+  const [showSidebar, setShowSidebar] = useState("-left-52");
   return (
     <>
       <AdminNavbar
@@ -14,7 +14,7 @@ const Sidebar = ({ location }:{location:string}):JSX.Element => {
         location={location}
       />
       <div
-        className={`h-screen fixed top-0 md:left-0 ${showSidebar} overflow-y-auto flex-row flex-nowrap overflow-hidden shadow-xl bg-white w-64 z-10 py-4 px-6 transition-all duration-300`}
+        className={`h-full fixed top-0 md:left-0 ${showSidebar} overflow-y-auto flex-row flex-nowrap overflow-hidden shadow-xl bg-white w-52 z-10 py-4 px-2 transition-all duration-300`}
       >
         <div className="flex-col items-stretch min-h-full flex-nowrap px-0 relative">
           <a
@@ -108,7 +108,7 @@ const Sidebar = ({ location }:{location:string}):JSX.Element => {
                   <a className="font-light text-2xl">Logs</a>
                   </div>
                 </Link>
-              </li>
+              </li>              
             </ul>
           </div>
         </div>

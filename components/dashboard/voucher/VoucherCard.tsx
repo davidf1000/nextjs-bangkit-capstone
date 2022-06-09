@@ -2,17 +2,30 @@ import { Fragment } from "react";
 import { Voucher } from "../../../pages/dashboard/voucher";
 
 const VoucherCard = ({voucher}:{voucher:Voucher}): JSX.Element => {
+  const backStyle = {
+    backgroundImage: "url("+voucher.imageUrl+")",
+    backgroundColor: "#cccccc",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover"
+  }
   return (<div className="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 w-72 m-4">
-    <div className="p-5">
+      <div className="h-28" style={backStyle}>
+      <div className="bg-black/40 h-full">
       <a href="#">
-        <h5 className="mb-2 text-2xl text-center font-bold tracking-tight text-gray-900 dark:text-white">
+        <h5 className="mb-2 pt-2 text-2xl text-center font-bold tracking-tight text-white dark:text-white">
           {voucher.voucherName}
         </h5>
       </a>
-      <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 text-center">
+      <p className="mb-3 font-normal text-white dark:text-gray-400 text-center">
           {voucher.voucherDesc}
       </p>
-      <hr className="my-1"></hr>
+
+
+      </div>
+      </div>
+
+
       <h2 className="text-4xl text-center my-2" my-1>{voucher.price} point</h2>
       <h3 className="text-3xl text-center font-bold mb-1 mt-6" my-1>{voucher.stock}</h3>
       <h4 className="text-md text-center font-bold" my-1>Vouchers remaining</h4>
@@ -29,8 +42,6 @@ const VoucherCard = ({voucher}:{voucher:Voucher}): JSX.Element => {
         Delete
       </button>
       </div>
-
-    </div>
   </div>)
 }
 

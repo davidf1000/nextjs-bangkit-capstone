@@ -7,6 +7,7 @@ import Modal from "../../components/dashboard/voucher/Modal";
 import createVouchers from "../../actions/fetchVoucher";
 import VoucherCard from "../../components/dashboard/voucher/VoucherCard";
 import cookies from 'next-cookies';
+import { useRouter } from "next/router";
 
 interface Todos {
   userId: number;
@@ -41,6 +42,11 @@ const Voucher = ({ vouchers }:{vouchers:Voucher[]}): JSX.Element => {
     stock: "",
     price: "",
   });
+  const editVoucher = (e: React.ChangeEvent<HTMLInputElement>, id:string):void =>{
+    e.preventDefault()
+    console.log("will delete voucher with ID: ",id);
+    
+  }
   return (
     <Fragment>
       <Head>
@@ -57,7 +63,7 @@ const Voucher = ({ vouchers }:{vouchers:Voucher[]}): JSX.Element => {
             >
               Add Voucher
             </button> 
-          <div className="flex flex-wrap gap-4 items-center">
+          <div className="flex flex-wrap gap-4 items-center justify-center">
 
             {showModal ? (
               <Modal
