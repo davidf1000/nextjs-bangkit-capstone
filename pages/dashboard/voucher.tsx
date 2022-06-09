@@ -8,6 +8,7 @@ import createVouchers from "../../actions/fetchVoucher";
 import VoucherCard from "../../components/dashboard/voucher/VoucherCard";
 import cookies from 'next-cookies';
 import { useRouter } from "next/router";
+import axios from "axios";
 
 export interface Voucher {
   voucherId: string;
@@ -23,8 +24,11 @@ export interface Voucher {
 
 // Dashboard - Voucher
 // SSR
-
-const Voucher = ({ vouchers }:{vouchers:Voucher[]}): JSX.Element => {
+interface VoucherProps { 
+  vouchers: Voucher[];
+  companyName: string;
+}
+const Voucher = ({ vouchers, companyName }:VoucherProps): JSX.Element => {
   const router = useRouter();
 
   const [showModal, setShowModal] = useState(false);
@@ -52,7 +56,7 @@ const Voucher = ({ vouchers }:{vouchers:Voucher[]}): JSX.Element => {
       <Head>
         <title>EcoTrans Website</title>
       </Head>
-      <Sidebar location={"Voucher"} />
+      <Sidebar location={"Voucher"} companyName={companyName} />
       <div className="md:ml-52">
         <div className="flex flex-col h-screen items-center">
         <button
@@ -107,9 +111,30 @@ export async function getServerSideProps(ctx) {
       props:{},
     };
   }
+  let companyName;
+  try{
+    const loadResponse:LoadResponse = await axios.get(`${process.env.BASEPATH}/api/load/${allCookies.userId}`,{
+      headers:{
+        Cookie: `token=${allCookies.token}; userId:${allCookies.userId}`
+      }
+    });
+    companyName = loadResponse.data.companyName
+    
+  }
+  catch(e){
+    console.log(e.message);
+    companyName = ''
+  }
   // Fetch data from external API
   const vouchers = createVouchers();
   // Pass data to the page via props
-  return { props: { vouchers } };
+  return { props: { vouchers, companyName } };
 }
 export default Voucher;
+
+interface LoadResponse{
+  status:number;
+  data: {
+    companyName: string;
+  }
+}

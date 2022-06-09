@@ -5,25 +5,23 @@ import Sidebar from '../../components/dashboard/Sidebar';
 import Footer from '../../components/Footer';
 import LogTable from '../../components/dashboard/LogTable';
 import cookies from 'next-cookies';
+import axios from 'axios';
 
 
-interface Todos {
-    userId: number;
-    id: number;
-    title : string;
-    body : string;
+interface LogsProps {
+  companyName: string;
 }
 
 // Dashboard - Logs
 // SSR
 
-const Logs = ({data}:{data:Todos[]}): JSX.Element => {
+const Logs = ({companyName}:LogsProps): JSX.Element => {
     return (
         <Fragment>
         <Head>
           <title>EcoTrans Website</title>
         </Head>
-        <Sidebar location={"logs"} />
+        <Sidebar location={"logs"} companyName={companyName}/>
         <div className="md:ml-52">
           <div className="flex flex-col h-screen justify-between">
             <LogTable />
@@ -54,8 +52,29 @@ export async function getServerSideProps(ctx) {
     };
   }
   // Fetch data from external API
-
+  let companyName;
+  try{
+    const loadResponse:LoadResponse = await axios.get(`${process.env.BASEPATH}/api/load/${allCookies.userId}`,{
+      headers:{
+        Cookie: `token=${allCookies.token}; userId:${allCookies.userId}`
+      }
+    });
+    companyName = loadResponse.data.companyName
+    
+  }
+  catch(e){
+    console.log(e.message);
+    companyName = ''
+  }
   // Pass data to the page via props
-  return { props: {  } };
+  return { props: { companyName} };
 }
+
 export default Logs;
+
+interface LoadResponse{
+  status:number;
+  data: {
+    companyName: string;
+  }
+}

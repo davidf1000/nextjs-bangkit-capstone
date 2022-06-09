@@ -13,6 +13,7 @@ const AdminNavbar = ({
   showSidebar,
   setShowSidebar,
   location,
+  companyName
 }): JSX.Element => {
   const router = useRouter();
   const logout = () => {
@@ -89,7 +90,7 @@ const AdminNavbar = ({
 
           <div className="flex justify-end items-center w-full mr-4">
             <h4 className="text-white text-md tracking-wider mt-1 invisible sm:visible">
-              Welcome, User
+              Welcome, {companyName}
             </h4>
             <h2 className="text-white text-xl tracking-wider mt-1 mx-2 invisible sm:visible">
               |
