@@ -36,6 +36,8 @@ const Voucher = ({
   partnerId,
   axiosHeader,
 }: VoucherProps): JSX.Element => {
+  const [alert, setAlert] = useState("");
+
   const router = useRouter();
   const [add, setAdd] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -68,13 +70,26 @@ const Voucher = ({
     console.log("will edit voucher with ID: ", voucherId);
     // router.reload()
   };
-  const deleteVoucher = (
+  const deleteVoucher = async (
     e: React.ChangeEvent<HTMLInputElement>,
     voucherId: string
   ): void => {
     e.preventDefault();
     console.log("will delete voucher with ID: ", voucherId);
-    router.reload();
+    try{
+      const deleteVoucherResp: DeleteVoucherResponse = await axios.delete(`https://backend-capstone-h3lwczj22a-et.a.run.app/voucher/${voucherId}`,axiosHeader)
+      if (deleteVoucherResp.status == 200) {
+        console.log("Delete Voucher Success");
+        router.reload()
+      }
+      else{
+        setAlert(deleteVoucherResp.data.msg);
+      }
+    }
+    catch(e: Error | AxiosError){
+      setAlert(e.message);
+    }
+
   };
 
   const addVoucher = (
@@ -98,6 +113,9 @@ const Voucher = ({
     setAdd(true);
     setShowModal(true);
   };
+  const alertClose = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setAlert("");
+  };
   return (
     <Fragment>
       <Head>
@@ -105,6 +123,26 @@ const Voucher = ({
       </Head>
       <Sidebar location={"Voucher"} companyName={companyName} />
       <div className="md:ml-52">
+      {alert && (
+                <div
+                  className="bg-red-100 border mb-3 mt-2 mx-4 border-red-400 text-red-700 px-4 py-2 rounded relative"
+                  role="alert"
+                >
+                  <span className="block sm:inline">{alert}</span>
+                  <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
+                    <svg
+                      onClick={e=>alertClose(e)}
+                      className="fill-current h-6 w-6 text-red-500"
+                      role="button"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                    >
+                      <title>Close</title>
+                      <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+                    </svg>
+                  </span>
+                </div>
+              )}        
         {showModal ? (
           <Modal
             add={false}
@@ -120,7 +158,7 @@ const Voucher = ({
             className="bg-green-600 hover:bg-green-100 text-white hover:text-green-600 font-bold py-2 px-4 border border-white hover:border-green-600 rounded-lg my-4"
             type="button"
             data-modal-toggle="defaultModal"
-            onClick={(e) => {
+            onClick={(e: Error | AxiosError) => {
               addVoucher(e);
             }}
           >
@@ -178,12 +216,22 @@ export async function getServerSideProps(ctx) {
       }
     );
     companyName = loadResponse.data.companyName;
-  } catch (e) {
+  } catch (e: Error | AxiosErrore) {
     console.log(e.message);
     companyName = "";
   }
   // Fetch data from external API
-  const vouchers = createVouchers();
+  // GET all voucher based on companyName
+  let vouchers = []
+  try{
+    const vouchersResponse: VouchersResponse = await axios.get(`https://backend-capstone-h3lwczj22a-et.a.run.app/vouchers?company=${companyName}`,axiosHeader);
+    vouchers = vouchersResponse.data.vouchers
+  }
+  catch(e: Error | AxiosError){
+    console.log(e.message);
+  }
+
+  // const vouchers = createVouchers();
   // Pass data to the page via props
   console.log(axiosHeader);
 
@@ -199,6 +247,23 @@ interface LoadResponse {
     companyName: string;
   };
 }
+
+interface VouchersResponse{
+  status: number;
+  data: {
+    error : boolean;
+    vouchers: Voucher[];
+  };
+}
+
+interface DeleteVoucherResponse {
+  status: number;
+  data:{
+    msg?:string;
+    error:boolean;
+  }
+}
+
 const categories = [
   "Electronic",
   "Fashion",

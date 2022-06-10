@@ -75,7 +75,7 @@ const Modal = ({ formData, setFormData, setShowModal, add, axiosHeader }): JSX.E
         stock:parseInt(stock),   
         price:parseInt(price)
       }
-      const addVoucherResp: AddVoucherResponse = await axios.post('http://localhost:8080/voucher',body,axiosHeader)
+      const addVoucherResp: AddVoucherResponse = await axios.post('https://backend-capstone-h3lwczj22a-et.a.run.app/voucher',body,axiosHeader)
       
       if (addVoucherResp.status == 200) {
         console.log("Add Success");
@@ -85,7 +85,7 @@ const Modal = ({ formData, setFormData, setShowModal, add, axiosHeader }): JSX.E
       }
       else{
         console.log(addVoucherResp.data.msg);
-        setAlert(addVoucherResp.data.msg)
+        setAlert(addVoucherResp.data.msg);
         setLoading(false);
 
       }
@@ -105,12 +105,14 @@ const Modal = ({ formData, setFormData, setShowModal, add, axiosHeader }): JSX.E
       voucherName,
       voucherDesc,
       category,
-      imageUrl: resp.data.url,
+      imageUrl,
       stock:parseInt(stock),   
       price:parseInt(price)
     }
+    console.log("BODY EDIT: ",body);
+    
     try{
-      const putVoucherResp: AddVoucherResponse = await axios.put('http://localhost:8080/voucher',body,axiosHeader)
+      const putVoucherResp: AddVoucherResponse = await axios.put(`https://backend-capstone-h3lwczj22a-et.a.run.app/voucher/${voucherId}`,body,axiosHeader)
       
       if (putVoucherResp.status == 200) {
         console.log("Edit Success");

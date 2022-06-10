@@ -10,7 +10,7 @@ const VoucherCard = ({voucher, editVoucher, deleteVoucher}:{voucher:Voucher}): J
     backgroundSize: "cover"
   }
   return (<div className="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 w-72 m-4">
-      <div className="h-28 rounded-lg" style={backStyle}>
+      <div className="h-36 rounded-lg" style={backStyle}>
       <div className="bg-black/40 h-full rounded-lg">
       <a href="#">
         <h5 className="mb-2 pt-2 text-2xl text-center font-bold tracking-tight text-white dark:text-white">
