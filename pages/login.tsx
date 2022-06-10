@@ -15,7 +15,7 @@ interface ApiResponse{
   status: number;
   data:{
     error: boolean;
-    msg: string;
+    msg?: string;
     partnerId: string;
     token: string;
   }
