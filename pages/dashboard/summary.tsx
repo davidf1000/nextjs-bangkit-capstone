@@ -11,12 +11,13 @@ import cookie from 'cookie';
 
 interface SummaryProps {
   companyName: string;
+  summaryData : SummaryData;
 }
 
 // Dashboard - Summary
 // SSR
 
-const Summary = ({ companyName }: SummaryProps): JSX.Element => {
+const Summary = ({ companyName, summaryData }: SummaryProps): JSX.Element => {
   return (
     <Fragment>
       <Head>
@@ -28,16 +29,32 @@ const Summary = ({ companyName }: SummaryProps): JSX.Element => {
           <div className="flex flex-wrap justify-center p-5 item-center content-center">
             {/* <h1 className="text-2xl text-gray-500">Content Here</h1> */}
             <div className="max-w-sm w-full sm:w-1/2 xl:w-1/4 p-2 ">
-              <StatusCard />
+              <StatusCard 
+              value={summaryData.transactionsMade}
+              desc={"Transactions made"}
+              icon={"cash"}
+              />
             </div>
             <div className="max-w-sm w-full sm:w-1/2 xl:w-1/4 p-2">
-              <StatusCard />
+              <StatusCard 
+              value={summaryData.voucherSold}
+              desc={"Voucher sold"}
+              icon={"voucher"}
+              />
             </div>
             <div className="max-w-sm w-full sm:w-1/2 xl:w-1/4 p-2">
-              <StatusCard />
+              <StatusCard 
+              value={summaryData.currentStock}
+              desc={"Current stock"}   
+              icon={"stock"}
+              />
             </div>
             <div className="max-w-sm w-full sm:w-1/2 xl:w-1/4 p-2">
-              <StatusCard />
+              <StatusCard 
+              value={summaryData.pointsEarned}
+              desc={"Points earned"}    
+              icon={"points"}
+              />
             </div>
           </div>
           <div className="flex flex-col">
@@ -62,6 +79,13 @@ const Summary = ({ companyName }: SummaryProps): JSX.Element => {
 interface Cookies {
   token: string;
   userId: string;
+}
+
+interface SummaryData{
+  transactionsMade : number;
+  voucherSold : number;
+  currentStock : number;
+  pointsEarned : number;
 }
 // This gets called on every request
 export async function getServerSideProps(ctx) {
@@ -95,9 +119,16 @@ export async function getServerSideProps(ctx) {
     companyName = ''
   }
   // console.log(companyName);
-  
-  return { props: {companyName} };
-    
+  // Fetch Data
+  const summaryData = {
+    transactionsMade : Math.floor(Math.random() * 10),
+    voucherSold : Math.floor(Math.random() * 10),
+    currentStock : Math.floor(Math.random() * 10),
+    pointsEarned : Math.floor(Math.random() * 1000)
+  }
+
+
+  return { props: {companyName,summaryData} };
   // Pass data to the page via props
 }
 export default Summary;
