@@ -6,16 +6,18 @@ import Footer from '../../components/Footer';
 import LogTable from '../../components/dashboard/LogTable';
 import cookies from 'next-cookies';
 import axios from 'axios';
+import createTransactions from '../../actions/fetchTransactions';
 
 
 interface LogsProps {
   companyName: string;
+  transactions: Transactions;
 }
 
 // Dashboard - Logs
 // SSR
 
-const Logs = ({companyName}:LogsProps): JSX.Element => {
+const Logs = ({companyName, transactions}:LogsProps): JSX.Element => {
     return (
         <Fragment>
         <Head>
@@ -24,7 +26,8 @@ const Logs = ({companyName}:LogsProps): JSX.Element => {
         <Sidebar location={"logs"} companyName={companyName}/>
         <div className="md:ml-52">
           <div className="flex flex-col h-screen justify-between">
-            <LogTable />
+            {/* {JSON.stringify(transactions)} */}
+            <LogTable transactions={transactions}/>
           </div>
           <Footer />
         </div>
@@ -66,8 +69,9 @@ export async function getServerSideProps(ctx) {
     console.log(e.message);
     companyName = ''
   }
+  const transactions = createTransactions()
   // Pass data to the page via props
-  return { props: { companyName} };
+  return { props: { companyName, transactions} };
 }
 
 export default Logs;
@@ -77,4 +81,11 @@ interface LoadResponse{
   data: {
     companyName: string;
   }
+}
+interface Transaction {
+  Date: Date;
+  voucherName : string;
+  category : string;
+  quantity : number;
+  totalPrice : number;
 }

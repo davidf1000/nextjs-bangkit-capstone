@@ -31,7 +31,7 @@ const Summary = ({ companyName, summaryData }: SummaryProps): JSX.Element => {
             <div className="max-w-sm w-full sm:w-1/2 xl:w-1/4 p-2 ">
               <StatusCard 
               value={summaryData.transactionsMade}
-              desc={"Transactions made"}
+              desc={"Transactions"}
               icon={"cash"}
               />
             </div>

@@ -15,24 +15,16 @@ export default function ChartLine() {
                     'March',
                     'April',
                     'May',
-                    'June',
-                    'July',
+                    'June'
                 ],
                 datasets: [
                     {
                         label: new Date().getFullYear(),
                         backgroundColor: '#03a9f4',
                         borderColor: '#03a9f4',
-                        data: [65, 78, 66, 44, 56, 67, 75],
+                        data: [65, 78, 66, 44, 56, 67],
                         fill: false,
-                    },
-                    {
-                        label: new Date().getFullYear() - 1,
-                        fill: false,
-                        backgroundColor: '#ff9800',
-                        borderColor: '#ff9800',
-                        data: [40, 68, 86, 74, 56, 60, 87],
-                    },
+                    }
                 ],
             },
             options: {
@@ -116,7 +108,7 @@ export default function ChartLine() {
                 <h6 className="uppercase text-gray-700 text-xs font-medium">
                     Overview
                 </h6>
-                <h2 className="text-gray-600 text-2xl">Sales value</h2>
+                <h2 className="text-gray-600 text-2xl">Voucher Sales</h2>
             </CardHeader>
             <CardBody>
                 <div className="relative h-96">

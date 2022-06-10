@@ -2,23 +2,17 @@ import Card from '@material-tailwind/react/Card';
 import CardHeader from '@material-tailwind/react/CardHeader';
 import CardBody from '@material-tailwind/react/CardBody';
 import Button from '@material-tailwind/react/Button';
-
-const LogTable = (): JSX.Element => {
+import { Fragment } from 'react';
+interface Transaction {
+    Date: Date;
+    voucherName : string;
+    category : string;
+    quantity : number;
+    totalPrice : number;
+}
+const LogTable = ({transactions}:{transactions: Transaction[]}): JSX.Element => {
     return (
         <Card>
-            <CardHeader color="blue" contentPosition="none">
-                <div className="w-full flex items-center justify-between">
-                    <h2 className="text-white text-2xl">Page Visits</h2>
-                    <Button
-                        color="transparent"
-                        buttonType="link"
-                        size="lg"
-                        style={{ padding: 0 }}
-                    >
-                        See More
-                    </Button>
-                </div>
-            </CardHeader>
             <CardBody>
                 <div className="overflow-x-auto">
                     <table className="items-center w-full bg-transparent border-collapse">
@@ -28,22 +22,48 @@ const LogTable = (): JSX.Element => {
                                     No
                                 </th>
                                 <th className="px-2 text-green-600 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap font-bold text-left">
-                                    User
+                                    Date
                                 </th>
                                 <th className="px-2 text-green-600 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap font-bold text-left">
-                                    buyDate
+                                    Voucher Name
+                                </th>
+                                <th className="px-2 text-green-600 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap font-bold text-left">
+                                    Category
                                 </th>
                                 <th className="px-2 text-green-600 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap font-bold text-left">
                                     Quantity
                                 </th>
+                                <th className="px-2 text-green-600 align-middle border-b border-solid border-gray-200 py-3 text-sm whitespace-nowrap font-bold text-left">
+                                    Total Price
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                    1
+                                {transactions.map((item,idx)=> <tr key={idx}>
+                                    <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
+                                    {idx+1}
                                 </th>
-                                <td className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
+                                <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
+                                    {item.Date}
+                                </th>
+                                <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
+                                    {item.voucherName}
+                                </th>
+                                <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
+                                    {item.category}
+                                </th>
+                                <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
+                                    {item.quantity}
+                                </th>
+                                <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
+                                    {item.totalPrice}
+                                </th>
+                                </tr>
+
+                                
+                                )}
+
+                                {/* <td className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
                                     Dakota Rice
                                 </td>
                                 <td className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
@@ -52,49 +72,13 @@ const LogTable = (): JSX.Element => {
                                 <td className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
                                     Niger
                                 </td>
-                            </tr>
-                            <tr>
-                                <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                    2
-                                </th>
                                 <td className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                    Minerva Hooper
+                                    Niger
                                 </td>
                                 <td className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                    $23,789
+                                    Niger
                                 </td>
-                                <td className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                    Curaçao
-                                </td>
-                            </tr>
-                            <tr>
-                                <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                    3
-                                </th>
-                                <td className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                    Sage Rodriguez
-                                </td>
-                                <td className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                    $56,142
-                                </td>
-                                <td className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                    Netherlands
-                                </td>
-                            </tr>
-                            <tr>
-                                <th className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                    4
-                                </th>
-                                <td className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                    Philip Chaney
-                                </td>
-                                <td className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                    $38,735
-                                </td>
-                                <td className="border-b border-gray-200 align-middle font-light text-sm whitespace-nowrap px-2 py-4 text-left">
-                                    Korea, South
-                                </td>
-                            </tr>
+                            </tr> */}
                         </tbody>
                     </table>
                 </div>

@@ -4,37 +4,28 @@ import Card from '@material-tailwind/react/Card';
 import CardHeader from '@material-tailwind/react/CardHeader';
 import CardBody from '@material-tailwind/react/CardBody';
 
-export default function ChartBar() {
+const ChartBar = ():JSX.Element => {
     useEffect(() => {
         let config = {
-            type: 'bar',
+            type: 'doughnut',
             data: {
                 labels: [
-                    'January',
-                    'February',
-                    'March',
-                    'April',
-                    'May',
-                    'June',
-                    'July',
+                    'Free ongkir 10 ribu ',
+                    'Cashback 15%',
+                    'Diskon belanja 5%'
                 ],
                 datasets: [
                     {
-                        label: new Date().getFullYear(),
-                        backgroundColor: '#03a9f4',
-                        borderColor: '#03a9f4',
-                        data: [30, 78, 56, 34, 100, 45, 13],
-                        fill: false,
-                        barThickness: 8,
-                    },
-                    {
-                        label: new Date().getFullYear() - 1,
-                        fill: false,
-                        backgroundColor: '#f44336',
-                        borderColor: '#f44336',
-                        data: [27, 68, 86, 74, 10, 4, 87],
-                        barThickness: 8,
-                    },
+                        data: [5, 2, 3],
+                        backgroundColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(54, 162, 235)',
+                            'rgb(255, 205, 86)'
+                          ],
+                          label: 'Voucher Sales Comparison',
+                          hoverOffset: 4
+                    }
+
                 ],
             },
             options: {
@@ -107,7 +98,7 @@ export default function ChartBar() {
                 <h6 className="uppercase text-gray-700 text-xs font-medium">
                     Overview
                 </h6>
-                <h2 className="text-gray-600 text-2xl">Sales value</h2>
+                <h2 className="text-gray-600 text-2xl">Voucher Sales Comparison</h2>
             </CardHeader>
             <CardBody>
                 <div className="relative h-96">
@@ -117,3 +108,5 @@ export default function ChartBar() {
         </Card>
     );
 }
+
+export default ChartBar;
