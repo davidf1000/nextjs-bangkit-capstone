@@ -9,6 +9,7 @@ import VoucherCard from "../../components/dashboard/voucher/VoucherCard";
 import cookies from "next-cookies";
 import { useRouter } from "next/router";
 import axios from "axios";
+import Heads from "../../components/Heads";
 
 export interface Voucher {
   voucherId: string;
@@ -118,11 +119,9 @@ const Voucher = ({
   };
   return (
     <Fragment>
-      <Head>
-        <title>EcoTrans Website</title>
-      </Head>
+      <Heads />
       <Sidebar location={"Voucher"} companyName={companyName} />
-      <div className="md:ml-52">
+      <div className="md:ml-52 flex flex-col justify-between">
       {alert && (
                 <div
                   className="bg-red-100 border mb-3 mt-2 mx-4 border-red-400 text-red-700 px-4 py-2 rounded relative"
@@ -179,9 +178,12 @@ const Voucher = ({
             {/*  */}
             <div className="flex flex-wrap"></div>
           </div>
+
+        
         </div>
-      </div>
       <Footer />
+
+      </div>
     </Fragment>
   );
 };
@@ -233,7 +235,6 @@ export async function getServerSideProps(ctx) {
 
   // const vouchers = createVouchers();
   // Pass data to the page via props
-  console.log(axiosHeader);
 
   return {
     props: { vouchers, companyName, partnerId: allCookies.userId, axiosHeader },

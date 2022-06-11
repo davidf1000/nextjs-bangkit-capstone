@@ -4,28 +4,27 @@ import Card from '@material-tailwind/react/Card';
 import CardHeader from '@material-tailwind/react/CardHeader';
 import CardBody from '@material-tailwind/react/CardBody';
 
-const ChartBar = ():JSX.Element => {
+const ChartLine = (): JSX.Element => {
     useEffect(() => {
-        let config = {
-            type: 'doughnut',
+        var config = {
+            type: 'line',
             data: {
                 labels: [
-                    'Free ongkir 10 ribu ',
-                    'Cashback 15%',
-                    'Diskon belanja 5%'
+                    'January',
+                    'February',
+                    'March',
+                    'April',
+                    'May',
+                    'June'
                 ],
                 datasets: [
                     {
-                        data: [5, 2, 3],
-                        backgroundColor: [
-                            'rgb(255, 99, 132)',
-                            'rgb(54, 162, 235)',
-                            'rgb(255, 205, 86)'
-                          ],
-                          label: 'Voucher Sales Comparison',
-                          hoverOffset: 4
+                        label: new Date().getFullYear(),
+                        backgroundColor: '#03a9f4',
+                        borderColor: '#03a9f4',
+                        data: [65, 78, 66, 44, 56, 67],
+                        fill: false,
                     }
-
                 ],
             },
             options: {
@@ -33,7 +32,15 @@ const ChartBar = ():JSX.Element => {
                 responsive: true,
                 title: {
                     display: false,
-                    text: 'Orders Chart',
+                    text: 'Sales Charts',
+                    fontColor: 'white',
+                },
+                legend: {
+                    labels: {
+                        fontColor: 'black',
+                    },
+                    align: 'end',
+                    position: 'bottom',
                 },
                 tooltips: {
                     mode: 'index',
@@ -43,26 +50,24 @@ const ChartBar = ():JSX.Element => {
                     mode: 'nearest',
                     intersect: true,
                 },
-                legend: {
-                    labels: {
-                        fontColor: 'rgba(17,17,17,.7)',
-                    },
-                    align: 'end',
-                    position: 'bottom',
-                },
                 scales: {
                     xAxes: [
                         {
-                            display: false,
+                            ticks: {
+                                fontColor: 'rgba(17,17,17,.7)',
+                            },
+                            display: true,
                             scaleLabel: {
-                                display: true,
+                                display: false,
                                 labelString: 'Month',
+                                fontColor: 'white',
                             },
                             gridLines: {
+                                display: false,
                                 borderDash: [2],
                                 borderDashOffset: [2],
                                 color: 'rgba(33, 37, 41, 0.3)',
-                                zeroLineColor: 'rgba(33, 37, 41, 0.3)',
+                                zeroLineColor: 'rgba(0, 0, 0, 0)',
                                 zeroLineBorderDash: [2],
                                 zeroLineBorderDashOffset: [2],
                             },
@@ -70,17 +75,21 @@ const ChartBar = ():JSX.Element => {
                     ],
                     yAxes: [
                         {
+                            ticks: {
+                                fontColor: 'rgba(17,17,17,.7)',
+                            },
                             display: true,
                             scaleLabel: {
                                 display: false,
                                 labelString: 'Value',
+                                fontColor: 'white',
                             },
                             gridLines: {
-                                borderDash: [2],
+                                borderDash: [3],
+                                borderDashOffset: [3],
                                 drawBorder: false,
-                                borderDashOffset: [2],
-                                color: 'rgba(33, 37, 41, 0.2)',
-                                zeroLineColor: 'rgba(33, 37, 41, 0.15)',
+                                color: 'rgba(17, 17, 17, 0.15)',
+                                zeroLineColor: 'rgba(33, 37, 41, 0)',
                                 zeroLineBorderDash: [2],
                                 zeroLineBorderDashOffset: [2],
                             },
@@ -89,24 +98,25 @@ const ChartBar = ():JSX.Element => {
                 },
             },
         };
-        let ctx = document.getElementById('bar-chart').getContext('2d');
-        window.myBar = new Chart(ctx, config);
+        var ctx = document.getElementById('line-chart').getContext('2d');
+        window.myLine = new Chart(ctx, config);
     }, []);
+
     return (
         <Card>
-            <CardHeader color="pink" contentPosition="left">
+            <CardHeader color="orange" contentPosition="left">
                 <h6 className="uppercase text-gray-700 text-xs font-medium">
                     Overview
                 </h6>
-                <h2 className="text-gray-600 text-2xl">Voucher Sales Comparison</h2>
+                <h2 className="text-gray-600 text-2xl">Voucher Sales</h2>
             </CardHeader>
             <CardBody>
                 <div className="relative h-96">
-                    <canvas id="bar-chart"></canvas>
+                    <canvas id="line-chart"></canvas>
                 </div>
             </CardBody>
         </Card>
     );
 }
 
-export default ChartBar;
+export default ChartLine;

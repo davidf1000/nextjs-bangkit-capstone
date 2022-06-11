@@ -4,27 +4,28 @@ import Card from '@material-tailwind/react/Card';
 import CardHeader from '@material-tailwind/react/CardHeader';
 import CardBody from '@material-tailwind/react/CardBody';
 
-export default function ChartLine() {
+const ChartDoughnut = ():JSX.Element => {
     useEffect(() => {
-        var config = {
-            type: 'line',
+        let config = {
+            type: 'doughnut',
             data: {
                 labels: [
-                    'January',
-                    'February',
-                    'March',
-                    'April',
-                    'May',
-                    'June'
+                    'Free ongkir 10 ribu ',
+                    'Cashback 15%',
+                    'Diskon belanja 5%'
                 ],
                 datasets: [
                     {
-                        label: new Date().getFullYear(),
-                        backgroundColor: '#03a9f4',
-                        borderColor: '#03a9f4',
-                        data: [65, 78, 66, 44, 56, 67],
-                        fill: false,
+                        data: [5, 2, 3],
+                        backgroundColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(54, 162, 235)',
+                            'rgb(255, 205, 86)'
+                          ],
+                          label: 'Voucher Sales Comparison',
+                          hoverOffset: 4
                     }
+
                 ],
             },
             options: {
@@ -32,15 +33,7 @@ export default function ChartLine() {
                 responsive: true,
                 title: {
                     display: false,
-                    text: 'Sales Charts',
-                    fontColor: 'white',
-                },
-                legend: {
-                    labels: {
-                        fontColor: 'black',
-                    },
-                    align: 'end',
-                    position: 'bottom',
+                    text: 'Orders Chart',
                 },
                 tooltips: {
                     mode: 'index',
@@ -50,24 +43,26 @@ export default function ChartLine() {
                     mode: 'nearest',
                     intersect: true,
                 },
+                legend: {
+                    labels: {
+                        fontColor: 'rgba(17,17,17,.7)',
+                    },
+                    align: 'end',
+                    position: 'bottom',
+                },
                 scales: {
                     xAxes: [
                         {
-                            ticks: {
-                                fontColor: 'rgba(17,17,17,.7)',
-                            },
-                            display: true,
+                            display: false,
                             scaleLabel: {
-                                display: false,
+                                display: true,
                                 labelString: 'Month',
-                                fontColor: 'white',
                             },
                             gridLines: {
-                                display: false,
                                 borderDash: [2],
                                 borderDashOffset: [2],
                                 color: 'rgba(33, 37, 41, 0.3)',
-                                zeroLineColor: 'rgba(0, 0, 0, 0)',
+                                zeroLineColor: 'rgba(33, 37, 41, 0.3)',
                                 zeroLineBorderDash: [2],
                                 zeroLineBorderDashOffset: [2],
                             },
@@ -75,21 +70,17 @@ export default function ChartLine() {
                     ],
                     yAxes: [
                         {
-                            ticks: {
-                                fontColor: 'rgba(17,17,17,.7)',
-                            },
                             display: true,
                             scaleLabel: {
                                 display: false,
                                 labelString: 'Value',
-                                fontColor: 'white',
                             },
                             gridLines: {
-                                borderDash: [3],
-                                borderDashOffset: [3],
+                                borderDash: [2],
                                 drawBorder: false,
-                                color: 'rgba(17, 17, 17, 0.15)',
-                                zeroLineColor: 'rgba(33, 37, 41, 0)',
+                                borderDashOffset: [2],
+                                color: 'rgba(33, 37, 41, 0.2)',
+                                zeroLineColor: 'rgba(33, 37, 41, 0.15)',
                                 zeroLineBorderDash: [2],
                                 zeroLineBorderDashOffset: [2],
                             },
@@ -98,23 +89,24 @@ export default function ChartLine() {
                 },
             },
         };
-        var ctx = document.getElementById('line-chart').getContext('2d');
-        window.myLine = new Chart(ctx, config);
+        let ctx = document.getElementById('bar-chart').getContext('2d');
+        window.myBar = new Chart(ctx, config);
     }, []);
-
     return (
         <Card>
-            <CardHeader color="orange" contentPosition="left">
+            <CardHeader color="pink" contentPosition="left">
                 <h6 className="uppercase text-gray-700 text-xs font-medium">
                     Overview
                 </h6>
-                <h2 className="text-gray-600 text-2xl">Voucher Sales</h2>
+                <h2 className="text-gray-600 text-2xl">Voucher Sales Comparison</h2>
             </CardHeader>
             <CardBody>
                 <div className="relative h-96">
-                    <canvas id="line-chart"></canvas>
+                    <canvas id="bar-chart"></canvas>
                 </div>
             </CardBody>
         </Card>
     );
 }
+
+export default ChartDoughnut;

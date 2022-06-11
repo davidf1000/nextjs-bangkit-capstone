@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import React from "react";
 import axios, { AxiosError } from "axios";
-import NavBar from "../components/Navbar";
+import NavBar from "../components/landing/Navbar";
 import Footer from "../components/Footer";
 import Heads from "../components/Heads";
 import Image from "next/image";
@@ -92,19 +92,19 @@ const Login = ({ user }): JSX.Element => {
     background: #86efac};
   }
 `}</style>
-      <div className="flex flex-col h-screen justify-between">
+      <div className="flex flex-col h-screen justify-between font-sans">
         <NavBar login={true} />
-        <div className="flex rounded bg-white mx-auto my-12 w-3/4">
-          <div className="container bg-slate-500 rounded">
+        <div className="flex rounded bg-white mx-auto my-12 w-3/4 justify-center">
+          <div className="container bg-slate-500 rounded w-0 md:w-full">
             <img
               className="object-cover rounded h-full"
               src="/images/login.jpg"
             />
           </div>
-          <div className="container rounded bg-white">
+          <div className="container rounded bg-white content-center items-center">
             <div className="flex flex-col text-center justify-between my-16">
               <div>
-                <h1 className="text-5xl font-sans mt-16 mb-10">Welcome</h1>
+                <h1 className="text-5xl font-sans mb-16">Welcome</h1>
               </div>
               <div className="my-5">
                 <form className="bg-white rounded px-8 pt-6 pb-8 mb-4">
@@ -161,7 +161,7 @@ const Login = ({ user }): JSX.Element => {
                   </button>
                 )}
 
-                <h3 className="font-sans my-6">
+                <h3 className="font-sans my-6 mx-2">
                   Haven't created your account ?{" "}
                   <a
                     className="font-sans font-bold 

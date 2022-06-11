@@ -1,6 +1,6 @@
 import { GetStaticProps } from 'next'
 import { Fragment } from 'react'
-import Landing from '../components/Landing';
+import Landing from '../components/landing/Landing';
 import Heads from '../components/Heads';
 // Root Page 
 // SSG 

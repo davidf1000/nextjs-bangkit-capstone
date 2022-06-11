@@ -3,10 +3,11 @@ import Head from 'next/head'
 import { GetServerSideProps } from 'next'
 import Sidebar from '../../components/dashboard/Sidebar';
 import Footer from '../../components/Footer';
-import LogTable from '../../components/dashboard/LogTable';
+import LogTable from '../../components/dashboard/logs/LogTable';
 import cookies from 'next-cookies';
 import axios from 'axios';
 import createTransactions from '../../actions/fetchTransactions';
+import Heads from '../../components/Heads';
 
 
 interface LogsProps {
@@ -20,9 +21,7 @@ interface LogsProps {
 const Logs = ({companyName, transactions}:LogsProps): JSX.Element => {
     return (
         <Fragment>
-        <Head>
-          <title>EcoTrans Website</title>
-        </Head>
+        <Heads />
         <Sidebar location={"logs"} companyName={companyName}/>
         <div className="md:ml-52">
           <div className="flex flex-col h-screen justify-between">

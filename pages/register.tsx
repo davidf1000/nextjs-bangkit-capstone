@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useState } from "react";
-import NavBar from "../components/Navbar";
+import NavBar from "../components/landing/Navbar";
 import Heads from "../components/Heads";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -80,14 +80,14 @@ const Register = (): JSX.Element => {
 `}</style>
         <div className="flex flex-col h-screen justify-between">
       <NavBar login={true} />
-      <div className="flex rounded bg-white mx-auto my-12 w-3/4">
-        <div className="container rounded bg-slate-500 rounded">
+      <div className="flex rounded bg-white mx-auto my-12 w-3/4 font-sans">
+        <div className="container rounded bg-slate-500 rounded w-0 md:w-full">
           <img
             className="object-cover rounded h-full"
             src="/images/register.jpg"
           />
         </div>
-        <div className="container rounded-xl bg-white">
+        <div className="container rounded-xl bg-white my-4">
           <div className="flex flex-col text-center justify-between">
             <div>
               <h1 className="text-5xl font-sans mt-10 mb-8">
@@ -95,7 +95,7 @@ const Register = (): JSX.Element => {
               </h1>
             </div>
             <div className="my-1">
-              <form className="bg-white rounded px-8 pt-6 pb-8 mb-2">
+              <form className="bg-white rounded px-8 pt-6 pb-2 mb-1">
                 <div className="mb-2">
                   <label
                     className="block text-gray-700 text-sm font-bold mb-2"
@@ -155,7 +155,7 @@ const Register = (): JSX.Element => {
                     Password
                   </label>
                   <input
-                    className='shadow appearance-none border rounded w-1/2" py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline'
+                    className='shadow appearance-none border rounded w-1/2" py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
                     id="password"
                     type="password"
                     placeholder="******************"
@@ -176,7 +176,7 @@ const Register = (): JSX.Element => {
                             :
                             <button
                             onClick={e=> userSubmit(e)}
-                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-4"
                             type="button"
                           >
                             Register

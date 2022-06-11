@@ -1,6 +1,6 @@
 import { Fragment } from "react"
 import NavBar from "./Navbar"
-import Footer from "./Footer"
+import Footer from "../Footer"
 import Content from "./Content";
 
 

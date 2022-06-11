@@ -1,13 +1,12 @@
 import { Fragment } from "react";
-import Head from "next/head";
 import axios from "axios";
-import StatusCard from "../../components/dashboard/StatusCard";
-import ChartLine from "../../components/dashboard/ChartLine";
-import ChartBar from "../../components/dashboard/ChartBar";
+import StatusCard from "../../components/dashboard/summary/StatusCard";
+import ChartLine from "../../components/dashboard/summary/ChartLine";
 import Sidebar from "../../components/dashboard/Sidebar";
 import Footer from "../../components/Footer";
 import cookies from "next-cookies";
-import cookie from 'cookie';
+import Heads from "../../components/Heads";
+import ChartDoughnut from "../../components/dashboard/summary/ChartDoughnut";
 
 interface SummaryProps {
   companyName: string;
@@ -20,9 +19,7 @@ interface SummaryProps {
 const Summary = ({ companyName, summaryData }: SummaryProps): JSX.Element => {
   return (
     <Fragment>
-      <Head>
-        <title>EcoTrans Website</title>
-      </Head>
+      <Heads />
       <Sidebar location={"Summary"} companyName={companyName} />
       <div className="md:ml-52 flex flex-col justify-between h-screen">
         <div className="flex flex-col">
@@ -61,7 +58,7 @@ const Summary = ({ companyName, summaryData }: SummaryProps): JSX.Element => {
             <div className="flex flex-wrap justify-center md:justify-start item-center p-5">
               {/* <h1 className="text-2xl text-gray-500">Content Here</h1> */}
               <div className="w-full lg:w-1/2 px-2">
-                <ChartBar />
+                <ChartDoughnut />
               </div>
               <div className="w-full lg:w-1/2 px-2">
                 <ChartLine />
