@@ -1,7 +1,13 @@
 import { Fragment } from "react";
 import { Voucher } from "../../../pages/dashboard/voucher";
 
-const VoucherCard = ({voucher, editVoucher, deleteVoucher}:{voucher:Voucher}): JSX.Element => {
+interface VoucherCardProps {
+  voucher: Voucher;
+  editVoucher : Function;
+  deleteVoucher : Function;
+}
+
+const VoucherCard = ({voucher, editVoucher, deleteVoucher}:VoucherCardProps): JSX.Element => {
   const backStyle = {
     backgroundImage: "url("+voucher.imageUrl+")",
     backgroundColor: "#cccccc",

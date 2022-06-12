@@ -4,30 +4,23 @@ import Card from '@material-tailwind/react/Card';
 import CardHeader from '@material-tailwind/react/CardHeader';
 import CardBody from '@material-tailwind/react/CardBody';
 
-const ChartDoughnut = ():JSX.Element => {
+interface ChartDoughnutProps {
+    data:{
+        labels: string[];
+        datasets : {
+            data : number[];
+            backgroundColor : string[];
+            label : string;
+            hoverOffset : number;
+        }
+    }
+}
+
+const ChartDoughnut = ({data}:ChartDoughnutProps):JSX.Element => {
     useEffect(() => {
         let config = {
             type: 'doughnut',
-            data: {
-                labels: [
-                    'Free ongkir 10 ribu ',
-                    'Cashback 15%',
-                    'Diskon belanja 5%'
-                ],
-                datasets: [
-                    {
-                        data: [5, 2, 3],
-                        backgroundColor: [
-                            'rgb(255, 99, 132)',
-                            'rgb(54, 162, 235)',
-                            'rgb(255, 205, 86)'
-                          ],
-                          label: 'Voucher Sales Comparison',
-                          hoverOffset: 4
-                    }
-
-                ],
-            },
+            data: data ,
             options: {
                 maintainAspectRatio: false,
                 responsive: true,
@@ -89,8 +82,9 @@ const ChartDoughnut = ():JSX.Element => {
                 },
             },
         };
-        let ctx = document.getElementById('bar-chart').getContext('2d');
-        window.myBar = new Chart(ctx, config);
+        const canvas = document.getElementById('bar-chart') as HTMLCanvasElement;
+        const ctx = canvas.getContext('2d');
+        (window as any).myBar = new Chart(ctx, config);
     }, []);
     return (
         <Card>

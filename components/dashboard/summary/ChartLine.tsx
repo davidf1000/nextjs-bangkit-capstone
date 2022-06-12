@@ -4,29 +4,24 @@ import Card from '@material-tailwind/react/Card';
 import CardHeader from '@material-tailwind/react/CardHeader';
 import CardBody from '@material-tailwind/react/CardBody';
 
-const ChartLine = (): JSX.Element => {
+interface ChartLineProps{
+    data : {
+        labels : string[];
+        datasets: {
+            label : number
+            backgroundColor: string;
+            borderColor: string;
+            data: number[];
+            fill: boolean;
+        }
+    }
+}
+
+const ChartLine = ({data}:ChartLineProps): JSX.Element => {
     useEffect(() => {
         var config = {
             type: 'line',
-            data: {
-                labels: [
-                    'January',
-                    'February',
-                    'March',
-                    'April',
-                    'May',
-                    'June'
-                ],
-                datasets: [
-                    {
-                        label: new Date().getFullYear(),
-                        backgroundColor: '#03a9f4',
-                        borderColor: '#03a9f4',
-                        data: [65, 78, 66, 44, 56, 67],
-                        fill: false,
-                    }
-                ],
-            },
+            data: data,
             options: {
                 maintainAspectRatio: false,
                 responsive: true,
@@ -98,8 +93,9 @@ const ChartLine = (): JSX.Element => {
                 },
             },
         };
-        var ctx = document.getElementById('line-chart').getContext('2d');
-        window.myLine = new Chart(ctx, config);
+        const canvas = document.getElementById('line-chart') as HTMLCanvasElement;
+        const ctx = canvas.getContext('2d');
+        (window as any).myLine = new Chart(ctx, config);
     }, []);
 
     return (

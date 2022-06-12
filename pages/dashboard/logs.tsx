@@ -12,7 +12,7 @@ import Heads from '../../components/Heads';
 
 interface LogsProps {
   companyName: string;
-  transactions: Transactions;
+  transactions: Transaction[];
 }
 
 // Dashboard - Logs
@@ -41,7 +41,7 @@ interface Cookies{
 // This gets called on every request
 export async function getServerSideProps(ctx) {
   // Cookies
-  const allCookies: Cookies = cookies(ctx);
+  const allCookies: Record <string,string> = cookies(ctx);
   // If no token or no user, redirect 
   if (!allCookies.token || !allCookies.userId ){
     console.log("cookies missing, redirecting...");
@@ -82,7 +82,7 @@ interface LoadResponse{
   }
 }
 interface Transaction {
-  Date: Date;
+  Date: string;
   voucherName : string;
   category : string;
   quantity : number;

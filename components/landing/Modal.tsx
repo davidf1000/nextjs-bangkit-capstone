@@ -18,7 +18,7 @@ const Modal = ({resource, setShowModal}:ModalProps): JSX.Element => {
     backgroundColor: "#cccccc",
     backgroundRepeat: "no-repeat",
     backgroundPosition :"center",
-    backgroundSize: "cover"
+    backgroundSize: "contain",
   }
   return (
     <Fragment>
@@ -26,7 +26,7 @@ const Modal = ({resource, setShowModal}:ModalProps): JSX.Element => {
           {/*content*/}
             {/*body*/}
             <div
-              className="object-cover rounded h-3/4 w-3/4"
+              className="object-cover rounded h-5/6 w-11/12"
               style={backStyle}
             >
                             <button

@@ -50,13 +50,13 @@ const Voucher = ({
     voucherDesc: "",
     category: categories[0],
     imageUrl: "",
-    stock: "",
-    price: "",
+    stock: 0,
+    price: 0,
   });
   const editVoucher = async (
     e: React.ChangeEvent<HTMLInputElement>,
     voucherId: string
-  ): void => {
+  ) => {
     e.preventDefault();
     // filter Data to Get ID of the Voucher
     const voucher = vouchers.find((x) => x.voucherId === voucherId);
@@ -74,7 +74,7 @@ const Voucher = ({
   const deleteVoucher = async (
     e: React.ChangeEvent<HTMLInputElement>,
     voucherId: string
-  ): void => {
+  ) => {
     e.preventDefault();
     console.log("will delete voucher with ID: ", voucherId);
     try{
@@ -87,15 +87,14 @@ const Voucher = ({
         setAlert(deleteVoucherResp.data.msg);
       }
     }
-    catch(e: Error | AxiosError){
+    catch(e: any){
       setAlert(e.message);
     }
 
   };
 
   const addVoucher = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    voucherId: string
+    e: React.ChangeEvent<HTMLInputElement>
   ): void => {
     e.preventDefault();
     console.log("will Add New voucher");
@@ -108,13 +107,13 @@ const Voucher = ({
       voucherDesc: "",
       category: categories[0],
       imageUrl: "",
-      stock: "",
-      price: "",
+      stock: 0,
+      price: 0,
     });
     setAdd(true);
     setShowModal(true);
   };
-  const alertClose = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const alertClose = (e: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<SVGSVGElement, MouseEvent>): void => {
     setAlert("");
   };
   return (
@@ -144,7 +143,6 @@ const Voucher = ({
               )}        
         {showModal ? (
           <Modal
-            add={false}
             setShowModal={setShowModal}
             formData={formData}
             setFormData={setFormData}
@@ -157,7 +155,7 @@ const Voucher = ({
             className="bg-green-600 hover:bg-green-100 text-white hover:text-green-600 font-bold py-2 px-4 border border-white hover:border-green-600 rounded-lg my-4"
             type="button"
             data-modal-toggle="defaultModal"
-            onClick={(e: Error | AxiosError) => {
+            onClick={(e: any) => {
               addVoucher(e);
             }}
           >
@@ -191,7 +189,7 @@ const Voucher = ({
 // This gets called on every request
 export async function getServerSideProps(ctx) {
   // Cookies
-  const allCookies: Cookies = cookies(ctx);
+  const allCookies: Record <string,string> = cookies(ctx);
   // If no token or no user, redirect
   if (!allCookies.token || !allCookies.userId) {
     console.log("cookies missing, redirecting...");
@@ -218,7 +216,7 @@ export async function getServerSideProps(ctx) {
       }
     );
     companyName = loadResponse.data.companyName;
-  } catch (e: Error | AxiosErrore) {
+  } catch (e: any) {
     console.log(e.message);
     companyName = "";
   }
@@ -229,7 +227,7 @@ export async function getServerSideProps(ctx) {
     const vouchersResponse: VouchersResponse = await axios.get(`https://backend-capstone-h3lwczj22a-et.a.run.app/vouchers?company=${companyName}`,axiosHeader);
     vouchers = vouchersResponse.data.vouchers
   }
-  catch(e: Error | AxiosError){
+  catch(e: any){
     console.log(e.message);
   }
 

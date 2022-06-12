@@ -46,7 +46,7 @@ const Login = ({ user }): JSX.Element => {
     console.log("No Cookie detected");
   });
 
-  const alertClose = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const alertClose = (e: React.ChangeEvent<HTMLInputElement>| React.MouseEvent<SVGSVGElement, MouseEvent>): void => {
     setAlert("");
   };
 
@@ -54,7 +54,7 @@ const Login = ({ user }): JSX.Element => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const userSubmit = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const userSubmit = async (e: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     setLoading(true);
     console.log(formData);
@@ -78,7 +78,7 @@ const Login = ({ user }): JSX.Element => {
         cookieCutter.set("userId", res.data.partnerId);
         router.push("/dashboard/summary");
       }
-    } catch (err: Error | AxiosError) {
+    } catch (err: any) {
       console.log(err);
       setAlert(err.message);
       setLoading(false);      
@@ -95,7 +95,7 @@ const Login = ({ user }): JSX.Element => {
       <div className="flex flex-col h-screen justify-between font-sans">
         <NavBar login={true} />
         <div className="flex rounded bg-white mx-auto my-12 w-3/4 justify-center">
-          <div className="container bg-slate-500 rounded w-0 md:w-full">
+          <div className="container bg-slate-500 rounded w-0 md:w-1/2">
             <img
               className="object-cover rounded h-full"
               src="/images/login.jpg"

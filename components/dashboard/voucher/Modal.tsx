@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useRouter } from "next/router";
 import { Fragment, useState } from "react";
 
@@ -34,7 +34,7 @@ const Modal = ({ formData, setFormData, setShowModal, add, axiosHeader }): JSX.E
     "Ecommerce",
   ];
   const [loading,setLoading] = useState(false);
-  const [image,setImage] = useState("");
+  const [image,setImage] = useState<File | null>(null);
   const {
     voucherId,
     partnerId,
@@ -47,7 +47,7 @@ const Modal = ({ formData, setFormData, setShowModal, add, axiosHeader }): JSX.E
     price,
   } = formData;
   const modalTitle = add ? "Add Voucher" : "Edit Voucher";
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>|React.ChangeEvent<HTMLSelectElement>): void => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const onSubmit= async () => {
@@ -90,7 +90,7 @@ const Modal = ({ formData, setFormData, setShowModal, add, axiosHeader }): JSX.E
 
       }
     }
-    catch(e: Error | AxiosError){
+    catch(e){
       console.log(e.message);
       setAlert(e.message)
       setLoading(false);
@@ -127,7 +127,7 @@ const Modal = ({ formData, setFormData, setShowModal, add, axiosHeader }): JSX.E
       }
 
     }
-    catch(e: Error | AxiosError){
+    catch(e){
       console.log(e.message);
       setAlert(e.message)
       setLoading(false);
@@ -138,7 +138,7 @@ const Modal = ({ formData, setFormData, setShowModal, add, axiosHeader }): JSX.E
 
 
 }
-const alertClose = (e: React.ChangeEvent<HTMLInputElement>): void => {
+const alertClose = (e: React.ChangeEvent<HTMLInputElement>|React.MouseEvent<SVGSVGElement, MouseEvent>): void => {
   setAlert("");
 };
   return (
@@ -206,7 +206,7 @@ const alertClose = (e: React.ChangeEvent<HTMLInputElement>): void => {
                   id="category"
                   name="category"
                   value={category}
-                  onChange={(e) => onChange(e)}
+                  onChange={(e) => {onChange(e)}}
                   className="form-select appearance-none
                     block
                     w-full

@@ -2,7 +2,8 @@
 import { getCookie } from 'cookies-next';
 import { getCookies, setCookies, removeCookies } from 'cookies-next';
 import { NextApiRequest, NextApiResponse } from 'next';
-import axios from "axios";
+import axios, { AxiosError } from "axios";
+import Error from 'next/error';
 
 interface PartnerResponse {
   status: number;
@@ -35,7 +36,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       );
         res.status(200).json({ companyName: partnerResponse.data.partner.partnerName })
     }
-    catch(e: Error | AxiosError){
+    catch(e: any){
       res.status(500).json({ msg:e.message })
     }
 
