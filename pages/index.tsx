@@ -1,32 +1,21 @@
-import { GetStaticProps } from 'next'
-import { Fragment } from 'react'
-import Landing from '../components/landing/Landing';
-import Heads from '../components/Heads';
-// Root Page 
-// SSG 
+import { GetStaticProps } from "next";
+import { Fragment } from "react";
+import Landing from "../components/landing/Landing";
+import Heads from "../components/Heads";
+// Root Page
+// SSG
 
-interface Props {
-  value: string;
-}
-
-const Home = ({
-  value
-}:Props) => {
+const Home = () => {
   return (
     <Fragment>
       <Heads />
-      <Landing/>
+      <Landing />
     </Fragment>
   );
-}
+};
 
-export const getStaticProps: GetStaticProps = async () => {
-  console.log("Test Static")
-  return {
-    props:
-    {value:"test"}
-  }
-}
-
+export const getStaticProps: GetStaticProps = () => ({
+  props: {},
+});
 
 export default Home;

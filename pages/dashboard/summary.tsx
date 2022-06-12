@@ -7,6 +7,7 @@ import Footer from "../../components/Footer";
 import cookies from "next-cookies";
 import Heads from "../../components/Heads";
 import ChartDoughnut from "../../components/dashboard/summary/ChartDoughnut";
+import { SummaryData } from "./dashboard.types";
 
 interface SummaryProps {
   companyName: string;
@@ -79,14 +80,7 @@ interface Cookies {
   userId: string;
 }
 
-interface SummaryData{
-  transactionsMade : number;
-  voucherSold : number;
-  currentStock : number;
-  pointsEarned : number;
-  dataDoughnut : any;
-  dataLine : any;
-}
+
 // This gets called on every request
 export async function getServerSideProps(ctx) {
   // Cookies

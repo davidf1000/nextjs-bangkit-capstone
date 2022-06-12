@@ -1,57 +1,8 @@
 import { useState, useRef, useEffect, Fragment } from "react";
+import { CarouselProps, Resource } from "./landing.types";
 import Modal from "./Modal";
 
-const data = {
-  resources: [
-    {
-      title: "Summary Dashboard",
-      imagePath: "./images/showcase/website/dashboard-summary.png",
-    },
-    {
-      title: "Voucher Dashboard",
-      imagePath: "./images/showcase/website/dashboard-voucher.png",
-    },
-    {
-      title: "Transaction Logs",
-      imagePath: "./images/showcase/website/dashboard-logs.png",
-    },
-    {
-      title: "Login",
-      imagePath: "./images/showcase/website/login.png",
-    },
-    {
-      title: "Register Account",
-      imagePath: "./images/showcase/website/register.png",
-    },
-    {
-      title: "Login screen",
-      imagePath: "./images/showcase/android/login.jpg",
-    },
-    {
-      title: "Home screen",
-      imagePath: "./images/showcase/android/home.jpg",
-    },
-    {
-      title: "Route Direction",
-      imagePath: "./images/showcase/android/route-direction.jpg",
-    },
-    {
-      title: "Travelling and weather forecast",
-      imagePath: "./images/showcase/android/Start-travel-and-forecast.jpg",
-    },
-    {
-      title: "Redeem voucher",
-      imagePath: "./images/showcase/android/voucher-redeem.jpg",
-    },
-  ],
-};
-
-interface Resource {
-  title: string;
-  imagePath: string;
-}
-
-const Carousel = () => {
+const Carousel = ({ data }: CarouselProps) => {
   const maxScrollWidth = useRef(0);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showModal, setShowModal] = useState(false);
