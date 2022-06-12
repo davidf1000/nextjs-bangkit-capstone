@@ -64,8 +64,8 @@ const Content = (): JSX.Element => (
       <section id="aboutus" className="pb-20 bg-gray-300 -mt-24">
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap">
-            {features.map((feature) => (
-              <FeatureCard {...feature} />
+            {features.map((feature,idx) => (
+              <FeatureCard key={idx} {...feature} />
             ))}
           </div>
 

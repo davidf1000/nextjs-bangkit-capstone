@@ -1,87 +1,78 @@
 import { Fragment, useEffect, useState } from "react";
 import React from "react";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import NavBar from "../components/landing/Navbar";
 import Footer from "../components/Footer";
 import Heads from "../components/Heads";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import cookieCutter from "cookie-cutter";
+import { LoginApiResponse, LoginFormData } from "./user.types";
 
 // Login
 // CSR - React
-
-interface ApiResponse{
-  status: number;
-  data:{
-    error: boolean;
-    msg?: string;
-    partnerId: string;
-    token: string;
-  }
-}
-
-const Login = ({ user }): JSX.Element => {
+const Login = (): JSX.Element => {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    username: "",
-    password: "",
+  const [loading, setLoading] = useState<boolean>(false);
+  const [formData, setFormData] = useState<LoginFormData>({
+    username: "demo",
+    password: "Demo123",
   });
-  const [alert, setAlert] = useState("");
+  const [alert, setAlert] = useState<null | string>(null);
   const { username, password } = formData;
-  // Similar to componentDidMount and componentDidUpdate:
   useEffect(() => {
     // check cookies
     const token = cookieCutter.get("token");
     const userId = cookieCutter.get("userId");
     if (token && userId) {
-      // TODO
-      // check for expiration date using jwt.decode
       router.push("/dashboard/summary");
     }
-    // if have token cookie, login, check expiration date
-    // if expired, logout
-    // else, get userID from cookie, then, redirect to dashboard
-    console.log("No Cookie detected");
   });
 
-  const alertClose = (e: React.ChangeEvent<HTMLInputElement>| React.MouseEvent<SVGSVGElement, MouseEvent>): void => {
-    setAlert("");
+  const alertClose = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.MouseEvent<SVGSVGElement, MouseEvent>
+  ): void => {
+    e.preventDefault();
+    setAlert(null);
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const userSubmit = async (e: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const userSubmit = async (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     e.preventDefault();
     setLoading(true);
-    console.log(formData);
-
-    const body = {
+    const body: LoginFormData = {
       username,
-      password
+      password,
     };
     try {
-      const res: ApiResponse = await axios.post("api/login", body);
-      console.log(res);
+      const res: LoginApiResponse = await axios.post("api/login", body);
       if (res.status !== 200) {
         console.log("Error Login");
         setAlert(res.data.msg);
         setLoading(false);
       } else {
-        console.log("Success ! redirecting to dashboard ...");
-        console.log(res.data);
         // Set cookie for token and userID
         cookieCutter.set("token", res.data.token);
         cookieCutter.set("userId", res.data.partnerId);
+        // If demo account, set demo to true
+        cookieCutter.set(
+          "demo",
+          body.username === "demo" && body.password === "Demo123"
+        );
         router.push("/dashboard/summary");
       }
     } catch (err: any) {
       console.log(err);
       setAlert(err.message);
-      setLoading(false);      
+      setLoading(false);
     }
   };
   return (
@@ -153,7 +144,9 @@ const Login = ({ user }): JSX.Element => {
                   </div>
                 ) : (
                   <button
-                    onClick={(e)=>{userSubmit(e)}}
+                    onClick={(e) => {
+                      userSubmit(e);
+                    }}
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     type="button"
                   >
@@ -180,7 +173,7 @@ const Login = ({ user }): JSX.Element => {
                   <span className="block sm:inline">{alert}</span>
                   <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
                     <svg
-                      onClick={e=>alertClose(e)}
+                      onClick={(e) => alertClose(e)}
                       className="fill-current h-6 w-6 text-red-500"
                       role="button"
                       xmlns="http://www.w3.org/2000/svg"
@@ -195,7 +188,6 @@ const Login = ({ user }): JSX.Element => {
             </div>
           </div>
         </div>
-
         <Footer />
       </div>
     </Fragment>

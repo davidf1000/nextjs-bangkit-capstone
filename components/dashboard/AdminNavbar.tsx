@@ -13,14 +13,13 @@ const AdminNavbar = ({
   showSidebar,
   setShowSidebar,
   location,
-  companyName
+  companyName,
 }): JSX.Element => {
   const router = useRouter();
   const logout = () => {
-    // delete cookie
-    console.log("Delete Cookie");
     cookieCutter.set("token", "", { expires: new Date(0) });
     cookieCutter.set("userId", "", { expires: new Date(0) });
+    cookieCutter.set("demo", "", { expires: new Date(0) });
     router.push("/");
   };
   return (

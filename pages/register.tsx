@@ -1,41 +1,32 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import NavBar from "../components/landing/Navbar";
 import Heads from "../components/Heads";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import cookieCutter from "cookie-cutter";
 import axios from "axios";
 import Footer from "../components/Footer";
-// Login
+import { RegisterApiResponse, RegisterFormData } from "./user.types";
+
+// Register
 // CSR - React
-interface ApiResponse {
-  status: number;
-  data: {
-    error: Boolean;
-    msg?: String;
-    status?: String;
-  };
-}
 const Register = (): JSX.Element => {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({
+  const [loading, setLoading] = useState<boolean>(false);
+  const [formData, setFormData] = useState<RegisterFormData>({
     email: "",
     companyName: "",
     userName: "",
     password: "",
   });
-  const [alert, setAlert] = useState("");
+  const [alert, setAlert] = useState<null | string>(null);
   const { email, companyName, userName, password } = formData;
-  // Similar to componentDidMount and componentDidUpdate:
-  useEffect(() => {
-    console.log("Register UseEffect");
-  });
   const alertClose = (
-    e: React.ChangeEvent<HTMLInputElement>
+    e:
+      | React.ChangeEvent<HTMLInputElement>
       | React.MouseEvent<SVGSVGElement, MouseEvent>
   ): void => {
-    setAlert("");
+    e.preventDefault();
+    setAlert(null);
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -56,23 +47,19 @@ const Register = (): JSX.Element => {
       password,
     };
     try {
-      const res: ApiResponse = await axios.post("api/register", body);
-      console.log(res);
+      const res: RegisterApiResponse = await axios.post("api/register", body);
       if (res.status !== 201) {
-        console.log("Error Register");
         setAlert((res.data.msg as any) || (res.data.status as any));
         setLoading(false);
       } else {
         setLoading(false);
-        console.log("Success ! redirecting to login ...");
         // delete cookie
         cookieCutter.set("token", "", { expires: new Date(0) });
         cookieCutter.set("userId", "", { expires: new Date(0) });
+        cookieCutter.set("demo", "", { expires: new Date(0) });
         router.push("/login");
       }
     } catch (err: any) {
-      console.log("ERROR");
-
       setAlert(err.message);
       setLoading(false);
     }
