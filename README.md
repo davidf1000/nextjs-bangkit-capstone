@@ -7,6 +7,7 @@ Web application intended for partner to register, login, and view dashboard to s
 
 ## Deployment
 Currently, the webapp is deployed on GCP using Cloud Run
+https://ecotrans-webapp-h3lwczj22a-et.a.run.app 
 
 ## Development 
 ```bash
