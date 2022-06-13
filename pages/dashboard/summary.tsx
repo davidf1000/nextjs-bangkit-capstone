@@ -7,9 +7,16 @@ import Footer from "../../components/Footer";
 import cookies from "next-cookies";
 import Heads from "../../components/Heads";
 import ChartDoughnut from "../../components/dashboard/summary/ChartDoughnut";
-import { LoadResponse, SummaryData, SummaryProps } from "./dashboard.types";
+import {
+  GetPurchasesResponse,
+  GetVouchersResponse,
+  LoadResponse,
+  SummaryData,
+  SummaryProps,
+} from "./dashboard.types";
 import createRandomSummaryData from "../../actions/createRandomSummary";
 import { GetServerSideProps } from "next";
+import calculateSummary from "../../actions/calculateSummary";
 
 // Dashboard - Summary
 // SSR
@@ -85,27 +92,55 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     };
   }
   // Fetch Partner by ID
+  
   let companyName: string;
-  try {
-    const loadResponse: LoadResponse = await axios.get(
-      `${process.env.BASEPATH}/api/load/${allCookies.userId}`,
-      {
-        headers: {
-          Cookie: `token=${allCookies.token}; userId:${allCookies.userId}`,
-        },
-      }
-    );
-    companyName = loadResponse.data.companyName;
-  } catch (e) {
-    console.log(e.message);
-    companyName = "";
+  if (!allCookies.demo) {
+    try {
+      const loadResponse: LoadResponse = await axios.get(
+        `${process.env.BASEPATH}/api/load/${allCookies.userId}`,
+        {
+          headers: {
+            Cookie: `token=${allCookies.token}; userId:${allCookies.userId}`,
+          },
+        }
+      );
+      companyName = loadResponse.data.companyName;
+    } catch (e) {
+      console.log(e.message);
+      companyName = "";
+    }
+  } else {
+    companyName = "Demo";
   }
 
   // Fetch Data Summary
   // Check cookie mode if true createRandom, if not use api
-  const summaryData: SummaryData = createRandomSummaryData();
+  const axiosHeader = {
+    headers: { Authorization: `Bearer ${allCookies.token}` },
+  };
+  let summaryData: SummmaryData;
+  if (!allCookies.demo) {
+    // Get vouchers company
+    const respGetVouchers: GetVouchersResponse = await axios.get(
+      `https://backend-capstone-h3lwczj22a-et.a.run.app/vouchers?company=${companyName}`,
+      axiosHeader
+    );
+    // console.log(respGetVouchers.data.vouchers);
+    // get purchases
+    const respGetPurchases: GetPurchasesResponse = await axios.get(
+      `https://backend-capstone-h3lwczj22a-et.a.run.app/purchases`,
+      axiosHeader
+    );
+    // console.log(respGetPurchases.data.purchases);
+    summaryData = calculateSummary(
+      respGetPurchases.data.purchases,
+      respGetVouchers.data.vouchers
+    );    
+  } else {
+    summaryData = createRandomSummaryData();
+  }
 
   return { props: { companyName, summaryData } };
-}
+};
 
 export default Summary;

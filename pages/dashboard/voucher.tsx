@@ -175,28 +175,33 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       props: {},
     };
   }
-  let companyName: string;
   const axiosHeader = {
     headers: { Authorization: `Bearer ${allCookies.token}` },
   };
 
-  try {
-    const loadResponse: LoadResponse = await axios.get(
-      `${process.env.BASEPATH}/api/load/${allCookies.userId}`,
-      {
-        headers: {
-          Cookie: `token=${allCookies.token}; userId:${allCookies.userId}`,
-        },
-      }
-    );
-    companyName = loadResponse.data.companyName;
-  } catch (e: any) {
-    console.log(e.message);
-    companyName = "";
+  let companyName: string;
+  if (!allCookies.demo) {
+    try {
+      const loadResponse: LoadResponse = await axios.get(
+        `${process.env.BASEPATH}/api/load/${allCookies.userId}`,
+        {
+          headers: {
+            Cookie: `token=${allCookies.token}; userId:${allCookies.userId}`,
+          },
+        }
+      );
+      companyName = loadResponse.data.companyName;
+    } catch (e) {
+      console.log(e.message);
+      companyName = "";
+    }
+  } else {
+    companyName = "Demo";
   }
   // Fetch data from external API
   // GET all voucher based on companyName
   let vouchers = [];
+  if (!allCookies.demo)
   try {
     const vouchersResponse: VouchersResponse = await axios.get(
       `https://backend-capstone-h3lwczj22a-et.a.run.app/vouchers?company=${companyName}`,

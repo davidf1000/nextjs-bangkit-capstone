@@ -18,9 +18,9 @@ const AdminNavbar = ({
 }: AdminNavBarProps): JSX.Element => {
   const router = useRouter();
   const logout = () => {
-    cookieCutter.set("token", "", { expires: new Date(0) });
-    cookieCutter.set("userId", "", { expires: new Date(0) });
-    cookieCutter.set("demo", "", { expires: new Date(0) });
+    cookieCutter.set("token", "", { expires: new Date(0), path: '/' });
+    cookieCutter.set("userId", "", { expires: new Date(0), path: '/' });
+    cookieCutter.set("demo", "", { expires: new Date(0), path: '/' });
     router.push("/");
   };
   return (

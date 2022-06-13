@@ -67,6 +67,8 @@ const Login = (): JSX.Element => {
           "demo",
           body.username === "demo" && body.password === "Demo123"
         );
+        console.log("OK !");
+        e.preventDefault();
         router.push("/dashboard/summary");
       }
     } catch (err: any) {

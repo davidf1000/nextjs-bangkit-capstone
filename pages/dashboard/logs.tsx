@@ -41,19 +41,23 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     };
   }
   let companyName: string;
-  try {
-    const loadResponse: LoadResponse = await axios.get(
-      `${process.env.BASEPATH}/api/load/${allCookies.userId}`,
-      {
-        headers: {
-          Cookie: `token=${allCookies.token}; userId:${allCookies.userId}`,
-        },
-      }
-    );
-    companyName = loadResponse.data.companyName;
-  } catch (e) {
-    console.log(e.message);
-    companyName = "";
+  if (!allCookies.demo) {
+    try {
+      const loadResponse: LoadResponse = await axios.get(
+        `${process.env.BASEPATH}/api/load/${allCookies.userId}`,
+        {
+          headers: {
+            Cookie: `token=${allCookies.token}; userId:${allCookies.userId}`,
+          },
+        }
+      );
+      companyName = loadResponse.data.companyName;
+    } catch (e) {
+      console.log(e.message);
+      companyName = "";
+    }
+  } else {
+    companyName = "Demo";
   }
   const transactions: Transaction[] = createRandomTransactions();
   // Pass data to the page via props

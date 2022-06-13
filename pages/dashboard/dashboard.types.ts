@@ -91,3 +91,32 @@ export interface AxiosHeader {
     Authorization : string ;
   }
 }
+
+export interface GetVouchersResponse {
+  status : number;
+  data : {
+    error : boolean;
+    vouchers: Voucher[]
+  }
+}
+
+export interface Purchase{
+  purchaseId : string;
+  voucherId : string;
+  userId : string;
+  buyDate : string;
+  buyQuantity : number;
+}
+
+export interface VoucherAndPurchase extends Voucher,Purchase{
+
+}
+
+export interface GetPurchasesResponse {
+  status : number;
+  data : {
+    error : boolean;
+    msg : string;
+    purchases: Purchase[]
+  }
+}
