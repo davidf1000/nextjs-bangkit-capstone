@@ -9,6 +9,7 @@ import Heads from "../../components/Heads";
 import ChartDoughnut from "../../components/dashboard/summary/ChartDoughnut";
 import { LoadResponse, SummaryData, SummaryProps } from "./dashboard.types";
 import createRandomSummaryData from "../../actions/createRandomSummary";
+import { GetServerSideProps } from "next";
 
 // Dashboard - Summary
 // SSR
@@ -69,7 +70,7 @@ const Summary = ({ companyName, summaryData }: SummaryProps): JSX.Element => {
 };
 
 // This gets called on every request
-export async function getServerSideProps(ctx) {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
   // Cookies
   const allCookies: Record<string, string> = cookies(ctx);
   // If no token or no user, redirect
@@ -106,4 +107,5 @@ export async function getServerSideProps(ctx) {
 
   return { props: { companyName, summaryData } };
 }
+
 export default Summary;

@@ -25,7 +25,7 @@ const Logs = ({ companyName, transactions }: LogsProps): JSX.Element => {
   );
 };
 
-export async function getServerSideProps(ctx) {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
   // Cookies
   const allCookies: Record<string, string> = cookies(ctx);
   // If no token or no user, redirect

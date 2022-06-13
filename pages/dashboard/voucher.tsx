@@ -160,8 +160,7 @@ const Voucher = ({
   );
 };
 
-// This gets called on every request
-export async function getServerSideProps(ctx) {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
   // Cookies
   const allCookies: Record<string, string> = cookies(ctx);
   // If no token or no user, redirect
