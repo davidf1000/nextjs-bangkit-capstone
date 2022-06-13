@@ -1,16 +1,5 @@
 import { faker } from '@faker-js/faker';
-
-interface Voucher {
-    voucherId: string;
-    partnerId: string;
-    partnerName: string;
-    voucherName: string;
-    voucherDesc: string;
-    category: string;
-    imageUrl: string;
-    stock: number;
-    price: number;
-}
+import { Voucher } from '../pages/dashboard/dashboard.types';
 
 const category = ['Electronic', 'Fashion', 'Food', 'Transportation', 'Ecommerce']
 
@@ -27,7 +16,7 @@ const createVoucher = ():Voucher => ({
 })
 
 const createVouchers = (numVouchers:number = 6):Voucher[] => {
-    const company = faker.company.companyName()
+    // const company = faker.company.companyName()
     return Array.from({length: numVouchers},createVoucher);
   };
 

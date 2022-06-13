@@ -1,20 +1,21 @@
 import Button from "@material-tailwind/react/Button";
-import Icon from "@material-tailwind/react/Icon";
-import NavbarInput from "@material-tailwind/react/NavbarInput";
-import Image from "@material-tailwind/react/Image";
-import Dropdown from "@material-tailwind/react/Dropdown";
-import DropdownItem from "@material-tailwind/react/DropdownItem";
-import ProfilePicture from "../assets/img/team-1-800x800.jpg";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import cookieCutter from "cookie-cutter";
+
+interface AdminNavBarProps {
+  showSidebar: Function;
+  setShowSidebar: Function;
+  location: string;
+  companyName: string;
+}
 
 const AdminNavbar = ({
   showSidebar,
   setShowSidebar,
   location,
   companyName,
-}): JSX.Element => {
+}: AdminNavBarProps): JSX.Element => {
   const router = useRouter();
   const logout = () => {
     cookieCutter.set("token", "", { expires: new Date(0) });

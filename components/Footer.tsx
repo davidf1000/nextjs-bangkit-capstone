@@ -1,4 +1,3 @@
-
 const Footer = (): JSX.Element => (
   <footer className="bg-gray-100 text-center lg:text-left static bottom-0">
     <div className="text-gray-700 text-center p-4">

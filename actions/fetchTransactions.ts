@@ -1,12 +1,6 @@
 import { faker } from '@faker-js/faker';
 import moment from 'moment';
-interface Transaction {
-    Date: string;
-    voucherName : string;
-    category : string;
-    quantity : number;
-    totalPrice : number;
-}
+import { Transaction } from '../pages/dashboard/dashboard.types';
 
 const category = ['Electronic', 'Fashion', 'Food', 'Transportation', 'Ecommerce']
 
@@ -18,8 +12,8 @@ const createTransaction = ():Transaction => ({
     totalPrice : Math.floor(Math.random() * 1000)
 })
 
-const createTransactions = (num:number = 10):Transaction[] => {
+const createRandomTransactions = (num:number = 10):Transaction[] => {
     return Array.from({length: num},createTransaction);
   };
 
-export default createTransactions;
+export default createRandomTransactions;

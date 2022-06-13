@@ -1,8 +1,4 @@
-interface StatusCardProps {
-  value: number;
-  desc: string;
-  icon: string;
-}
+import { StatusCardProps } from "./summary.types";
 
 const StatusCard = ({ value, desc, icon }: StatusCardProps): JSX.Element => {
   return (
@@ -19,8 +15,8 @@ const StatusCard = ({ value, desc, icon }: StatusCardProps): JSX.Element => {
     </div>
   );
 };
-const width = { width: "80px" };
 
+const width = { width: "80px" };
 const iconMaker = (icon: string): JSX.Element => {
   if (icon === "cash") {
     return (
@@ -41,18 +37,60 @@ const iconMaker = (icon: string): JSX.Element => {
       </svg>
     );
   } else if (icon === "voucher") {
-    return (<svg xmlns="http://www.w3.org/2000/svg" className="text-red-500 mx-2" style={width} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-  <path strokeLinecap="round" strokeLinejoin="round" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
-</svg>)
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="text-red-500 mx-2"
+        style={width}
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth={2}
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"
+        />
+      </svg>
+    );
   } else if (icon === "stock") {
-    return (<svg xmlns="http://www.w3.org/2000/svg" className="text-amber-500 mx-2" style={width} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-  <path strokeLinecap="round" strokeLinejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-</svg>)
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="text-amber-500 mx-2"
+        style={width}
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth={2}
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+        />
+      </svg>
+    );
   } else {
     //points
-    return (<svg xmlns="http://www.w3.org/2000/svg" className="text-blue-500 mx-2" style={width} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-  <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-</svg>)
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="text-blue-500 mx-2"
+        style={width}
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth={2}
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+        />
+      </svg>
+    );
   }
 };
 
