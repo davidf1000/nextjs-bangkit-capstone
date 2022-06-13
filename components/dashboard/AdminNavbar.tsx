@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import cookieCutter from "cookie-cutter";
 
 interface AdminNavBarProps {
-  showSidebar: Function;
+  showSidebar: string;
   setShowSidebar: Function;
   location: string;
   companyName: string;

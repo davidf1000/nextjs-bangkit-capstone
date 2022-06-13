@@ -56,8 +56,8 @@ const Modal = ({
           voucherDesc,
           category,
           imageUrl: resp.data.url,
-          stock: parseInt(stock),
-          price: parseInt(price),
+          stock: parseInt(String(stock)),
+          price: parseInt(String(price)),
         };
         const addVoucherResp: AddVoucherResponse = await axios.post(
           "https://backend-capstone-h3lwczj22a-et.a.run.app/voucher",
@@ -86,8 +86,8 @@ const Modal = ({
         voucherDesc,
         category,
         imageUrl,
-        stock: parseInt(stock),
-        price: parseInt(price),
+        stock: parseInt(String(stock)),
+        price: parseInt(String(price)),
       };
       try {
         const putVoucherResp: AddVoucherResponse = await axios.put(

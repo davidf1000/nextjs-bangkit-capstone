@@ -14,6 +14,7 @@ import {
   VoucherProps,
   VouchersResponse,
 } from "./dashboard.types";
+import { GetServerSideProps } from "next";
 
 // Dashboard - Voucher
 // SSR

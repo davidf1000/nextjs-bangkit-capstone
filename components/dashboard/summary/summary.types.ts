@@ -6,7 +6,7 @@ export interface ChartDoughnutProps {
       backgroundColor: string[];
       label: string;
       hoverOffset: number;
-    };
+    }[];
   };
 }
 
@@ -19,7 +19,7 @@ export interface ChartLineProps {
       borderColor: string;
       data: number[];
       fill: boolean;
-    };
+    }[];
   };
 }
 

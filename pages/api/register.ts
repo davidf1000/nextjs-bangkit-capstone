@@ -1,33 +1,21 @@
-import axios from 'axios';
-import { NextApiRequest, NextApiResponse } from 'next'
-import cookie from "cookie";
+import axios from "axios";
+import { NextApiRequest, NextApiResponse } from "next";
+import { RegisterResponse } from "./api.types";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  try{
-    const resp:Response = await axios.post("https://backend-capstone-h3lwczj22a-et.a.run.app/company/register",req.body)
+  try {
+    const resp: RegisterResponse = await axios.post(
+      "https://backend-capstone-h3lwczj22a-et.a.run.app/company/register",
+      req.body
+    );
     if (resp.status !== 201) {
-      console.log("Error Login")
-      return
+      res.status(resp.status).json({msg: resp.data.msg});
+      return;
     }
-  res.status(201).json(resp.data);
+    res.status(201).json(resp.data);
+  } catch (e: any) {
+    res.status(500).json({ msg: e.message });
   }
-  catch(e : any){
-    console.log("ERROR with message", e.message);
-    
-    res.status(500).json({ error: e.message })
-  }
-
-  }
-
-interface Data {
-  error: Boolean;
-  msg?: String;
-  status?: String;
-}
-interface Response{
-  status: Number;
-  statusText: String;
-  data: Data;
-}
+};
 
 export default handler;

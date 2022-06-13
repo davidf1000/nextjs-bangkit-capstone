@@ -21,7 +21,7 @@ const Summary = ({ companyName, summaryData }: SummaryProps): JSX.Element => {
       <Sidebar location={"Summary"} companyName={companyName} />
       <div className="md:ml-52 flex flex-col justify-between h-screen">
         <div className="flex flex-col">
-          <div className="flex flex-wrap justify-center py-3 item-center content-center bg-red-100">
+          <div className="flex flex-wrap justify-center py-3 item-center content-center">
             <div className="max-w-sm w-full sm:w-1/2 xl:w-1/4 p-2">
               <StatusCard
                 value={summaryData.transactionsMade}
@@ -51,7 +51,7 @@ const Summary = ({ companyName, summaryData }: SummaryProps): JSX.Element => {
               />
             </div>
           </div>
-          <div className="flex flex-col bg-red-300">
+          <div className="flex flex-col">
             <div className="flex flex-wrap justify-center md:justify-start item-center p-5">
               <div className="w-full lg:w-1/2 px-2 py-2">
                 <ChartDoughnut data={summaryData.dataDoughnut} />

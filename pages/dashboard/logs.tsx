@@ -7,6 +7,7 @@ import axios from "axios";
 import Heads from "../../components/Heads";
 import { LoadResponse, LogsProps, Transaction } from "./dashboard.types";
 import createRandomTransactions from "../../actions/fetchTransactions";
+import { GetServerSideProps } from "next";
 
 // Dashboard - Logs
 // SSR

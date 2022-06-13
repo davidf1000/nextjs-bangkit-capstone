@@ -19,7 +19,7 @@ interface ChartDoughnutData {
     backgroundColor: string[];
     label: string;
     hoverOffset: number;
-  };
+  }[];
 }
 
 interface ChartLineData {
@@ -30,7 +30,7 @@ interface ChartLineData {
     borderColor: string;
     data: number[];
     fill: boolean;
-  };
+  }[];
 }
 
 export interface LoadResponse {
