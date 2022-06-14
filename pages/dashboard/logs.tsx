@@ -8,6 +8,7 @@ import Heads from "../../components/Heads";
 import { LoadResponse, LogsProps, Transaction } from "./dashboard.types";
 import createRandomTransactions from "../../actions/fetchTransactions";
 import { GetServerSideProps } from "next";
+import calculateLogs from "../../actions/calculateLogs";
 
 // Dashboard - Logs
 // SSR
@@ -40,6 +41,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       props: {},
     };
   }
+  const axiosHeader = {
+    headers: { Authorization: `Bearer ${allCookies.token}` },
+  };
   let companyName: string;
   if (allCookies.demo === true) {
     companyName = "Demo";
@@ -59,7 +63,29 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       companyName = "";
     }
   }
-  const transactions: Transaction[] = createRandomTransactions();
+  let transactions:Transaction[]  = [] 
+  if (allCookies.demo === true)
+  {
+    transactions = createRandomTransactions();
+  }
+  else{
+    // Get vouchers company
+    const respGetVouchers: GetVouchersResponse = await axios.get(
+      `https://backend-capstone-h3lwczj22a-et.a.run.app/vouchers?company=${companyName}`,
+      axiosHeader
+    );
+    // console.log(respGetVouchers.data.vouchers);
+    // get purchases
+    const respGetPurchases: GetPurchasesResponse = await axios.get(
+      `https://backend-capstone-h3lwczj22a-et.a.run.app/purchases`,
+      axiosHeader
+    );
+    // console.log(respGetPurchases.data.purchases);
+    transactions = calculateLogs(
+      respGetPurchases.data.purchases,
+      respGetVouchers.data.vouchers
+    );   
+  }
   // Pass data to the page via props
   return { props: { companyName, transactions } };
 };
