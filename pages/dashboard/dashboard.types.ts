@@ -120,3 +120,9 @@ export interface GetPurchasesResponse {
     purchases: Purchase[]
   }
 }
+
+export interface CookieList{
+  token: string;
+  userId : string;
+  demo : boolean;
+}

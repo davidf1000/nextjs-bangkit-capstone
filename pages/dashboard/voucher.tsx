@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import Heads from "../../components/Heads";
 import {
+  CookieList,
   DeleteVoucherResponse,
   LoadResponse,
   Voucher,
@@ -15,6 +16,7 @@ import {
   VouchersResponse,
 } from "./dashboard.types";
 import { GetServerSideProps } from "next";
+import createVouchers from "../../actions/fetchVoucher";
 
 // Dashboard - Voucher
 // SSR
@@ -163,7 +165,7 @@ const Voucher = ({
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   // Cookies
-  const allCookies: Record<string, string> = cookies(ctx);
+  const allCookies: CookieList = cookies(ctx);
   // If no token or no user, redirect
   if (!allCookies.token || !allCookies.userId) {
     console.log("cookies missing, redirecting...");
@@ -180,7 +182,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   };
 
   let companyName: string;
-  if (!allCookies.demo) {
+  if (allCookies.demo === true) {
+    companyName = "Demo";
+  } else {
     try {
       const loadResponse: LoadResponse = await axios.get(
         `${process.env.BASEPATH}/api/load/${allCookies.userId}`,
@@ -195,27 +199,28 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       console.log(e.message);
       companyName = "";
     }
-  } else {
-    companyName = "Demo";
   }
   // Fetch data from external API
   // GET all voucher based on companyName
   let vouchers = [];
-  if (!allCookies.demo)
-  try {
-    const vouchersResponse: VouchersResponse = await axios.get(
-      `https://backend-capstone-h3lwczj22a-et.a.run.app/vouchers?company=${companyName}`,
-      axiosHeader
-    );
-    vouchers = vouchersResponse.data.vouchers;
-  } catch (e: any) {
-    console.log(e.message);
+  if (allCookies.demo === true) {
+    vouchers = createVouchers(5);
+  } else {
+    try {
+      const vouchersResponse: VouchersResponse = await axios.get(
+        `https://backend-capstone-h3lwczj22a-et.a.run.app/vouchers?company=${companyName}`,
+        axiosHeader
+      );
+      vouchers = vouchersResponse.data.vouchers;
+    } catch (e: any) {
+      console.log(e.message);
+    }
   }
 
   return {
     props: { vouchers, companyName, partnerId: allCookies.userId, axiosHeader },
   };
-}
+};
 export default Voucher;
 
 const categories = [

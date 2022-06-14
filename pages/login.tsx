@@ -59,13 +59,15 @@ const Login = (): JSX.Element => {
         setAlert(res.data.msg);
         setLoading(false);
       } else {
+        const opt = {path: '/'}
         // Set cookie for token and userID
-        cookieCutter.set("token", res.data.token);
-        cookieCutter.set("userId", res.data.partnerId);
+        cookieCutter.set("token", res.data.token,opt);
+        cookieCutter.set("userId", res.data.partnerId,opt);
         // If demo account, set demo to true
         cookieCutter.set(
           "demo",
-          body.username === "demo" && body.password === "Demo123"
+          body.username === "demo" && body.password === "Demo123",
+          opt
         );
         console.log("OK !");
         e.preventDefault();

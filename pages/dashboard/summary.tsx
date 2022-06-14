@@ -8,6 +8,7 @@ import cookies from "next-cookies";
 import Heads from "../../components/Heads";
 import ChartDoughnut from "../../components/dashboard/summary/ChartDoughnut";
 import {
+  CookieList,
   GetPurchasesResponse,
   GetVouchersResponse,
   LoadResponse,
@@ -79,7 +80,7 @@ const Summary = ({ companyName, summaryData }: SummaryProps): JSX.Element => {
 // This gets called on every request
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   // Cookies
-  const allCookies: Record<string, string> = cookies(ctx);
+  const allCookies: CookieList = cookies(ctx,{path:'/'});
   // If no token or no user, redirect
   if (!allCookies.token || !allCookies.userId) {
     console.log("cookies missing, redirecting...");
@@ -92,9 +93,12 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     };
   }
   // Fetch Partner by ID
+  console.log(allCookies.demo);
   
   let companyName: string;
-  if (!allCookies.demo) {
+  if (allCookies.demo === true) {
+    companyName = "Demo";
+  } else {
     try {
       const loadResponse: LoadResponse = await axios.get(
         `${process.env.BASEPATH}/api/load/${allCookies.userId}`,
@@ -108,9 +112,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     } catch (e) {
       console.log(e.message);
       companyName = "";
-    }
-  } else {
-    companyName = "Demo";
+    }    
   }
 
   // Fetch Data Summary
@@ -119,7 +121,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     headers: { Authorization: `Bearer ${allCookies.token}` },
   };
   let summaryData: SummmaryData;
-  if (!allCookies.demo) {
+  if (allCookies.demo === true) {
+    summaryData = createRandomSummaryData();   
+  } else {
     // Get vouchers company
     const respGetVouchers: GetVouchersResponse = await axios.get(
       `https://backend-capstone-h3lwczj22a-et.a.run.app/vouchers?company=${companyName}`,
@@ -135,9 +139,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     summaryData = calculateSummary(
       respGetPurchases.data.purchases,
       respGetVouchers.data.vouchers
-    );    
-  } else {
-    summaryData = createRandomSummaryData();
+    );     
   }
 
   return { props: { companyName, summaryData } };

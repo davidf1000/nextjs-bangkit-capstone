@@ -41,7 +41,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     };
   }
   let companyName: string;
-  if (!allCookies.demo) {
+  if (allCookies.demo === true) {
+    companyName = "Demo";
+  } else {
     try {
       const loadResponse: LoadResponse = await axios.get(
         `${process.env.BASEPATH}/api/load/${allCookies.userId}`,
@@ -56,12 +58,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       console.log(e.message);
       companyName = "";
     }
-  } else {
-    companyName = "Demo";
   }
   const transactions: Transaction[] = createRandomTransactions();
   // Pass data to the page via props
   return { props: { companyName, transactions } };
-}
+};
 
 export default Logs;
