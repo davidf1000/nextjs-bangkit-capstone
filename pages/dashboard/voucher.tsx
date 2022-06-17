@@ -166,6 +166,9 @@ const Voucher = ({
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   // Cookies
   const allCookies: CookieList = cookies(ctx);
+  const axiosHeader = {
+    headers: { Authorization: `Bearer ${allCookies.token}` },
+  };
   // If no token or no user, redirect
   if (!allCookies.token || !allCookies.userId) {
     console.log("cookies missing, redirecting...");
@@ -177,13 +180,13 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       props: {},
     };
   }
-  const axiosHeader = {
-    headers: { Authorization: `Bearer ${allCookies.token}` },
-  };
 
   let companyName: string;
-  if (allCookies.demo === true) {
+  let vouchers: Voucher[];
+
+  if (allCookies.demo === "true") {
     companyName = "Demo";
+    vouchers = createVouchers(5);
   } else {
     try {
       const loadResponse: LoadResponse = await axios.get(
@@ -199,13 +202,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       console.log(e.message);
       companyName = "";
     }
-  }
-  // Fetch data from external API
-  // GET all voucher based on companyName
-  let vouchers = [];
-  if (allCookies.demo === true) {
-    vouchers = createVouchers(5);
-  } else {
+
     try {
       const vouchersResponse: VouchersResponse = await axios.get(
         `https://backend-capstone-h3lwczj22a-et.a.run.app/vouchers?company=${companyName}`,
@@ -213,6 +210,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       );
       vouchers = vouchersResponse.data.vouchers;
     } catch (e: any) {
+      vouchers = [];
       console.log(e.message);
     }
   }

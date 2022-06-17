@@ -81,6 +81,9 @@ const Summary = ({ companyName, summaryData }: SummaryProps): JSX.Element => {
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   // Cookies
   const allCookies: CookieList = cookies(ctx, { path: "/" });
+  const axiosHeader = {
+    headers: { Authorization: `Bearer ${allCookies.token}` },
+  };
   // If no token or no user, redirect
   if (!allCookies.token || !allCookies.userId) {
     console.log("cookies missing, redirecting...");
@@ -92,12 +95,11 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       props: {},
     };
   }
-  // Fetch Partner by ID
-  console.log(allCookies.demo);
-
   let companyName: string;
-  if (allCookies.demo === true) {
+  let summaryData: SummmaryData;
+  if (allCookies.demo === "true") {
     companyName = "Demo";
+    summaryData = createRandomSummaryData();
   } else {
     try {
       const loadResponse: LoadResponse = await axios.get(
@@ -109,39 +111,30 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
         }
       );
       companyName = loadResponse.data.companyName;
-    } catch (e) {
+    } catch (e: any) {
       console.log(e.message);
       companyName = "";
     }
+    console.log("inside");
+    try {
+      // Get vouchers company
+      const respGetVouchers: GetVouchersResponse = await axios.get(
+        `https://backend-capstone-h3lwczj22a-et.a.run.app/vouchers?company=${companyName}`,
+        axiosHeader
+      );
+      // get purchases
+      const respGetPurchases: GetPurchasesResponse = await axios.get(
+        `https://backend-capstone-h3lwczj22a-et.a.run.app/purchases`,
+        axiosHeader
+      );
+      summaryData = calculateSummary(
+        respGetPurchases.data.purchases,
+        respGetVouchers.data.vouchers
+      );
+    } catch (e: any) {
+      summaryData = [];
+    }
   }
-
-  // Fetch Data Summary
-  // Check cookie mode if true createRandom, if not use api
-  const axiosHeader = {
-    headers: { Authorization: `Bearer ${allCookies.token}` },
-  };
-  let summaryData: SummmaryData;
-  if (allCookies.demo === true) {
-    summaryData = createRandomSummaryData();
-  } else {
-    // Get vouchers company
-    const respGetVouchers: GetVouchersResponse = await axios.get(
-      `https://backend-capstone-h3lwczj22a-et.a.run.app/vouchers?company=${companyName}`,
-      axiosHeader
-    );
-    // console.log(respGetVouchers.data.vouchers);
-    // get purchases
-    const respGetPurchases: GetPurchasesResponse = await axios.get(
-      `https://backend-capstone-h3lwczj22a-et.a.run.app/purchases`,
-      axiosHeader
-    );
-    // console.log(respGetPurchases.data.purchases);
-    summaryData = calculateSummary(
-      respGetPurchases.data.purchases,
-      respGetVouchers.data.vouchers
-    );
-  }
-
   return { props: { companyName, summaryData } };
 };
 

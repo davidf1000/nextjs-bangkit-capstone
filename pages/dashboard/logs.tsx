@@ -30,6 +30,9 @@ const Logs = ({ companyName, transactions }: LogsProps): JSX.Element => {
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   // Cookies
   const allCookies: Record<string, string> = cookies(ctx);
+  const axiosHeader = {
+    headers: { Authorization: `Bearer ${allCookies.token}` },
+  };
   // If no token or no user, redirect
   if (!allCookies.token || !allCookies.userId) {
     console.log("cookies missing, redirecting...");
@@ -41,12 +44,11 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       props: {},
     };
   }
-  const axiosHeader = {
-    headers: { Authorization: `Bearer ${allCookies.token}` },
-  };
   let companyName: string;
-  if (allCookies.demo === true) {
+  let transactions: Transaction[] = [];
+  if (allCookies.demo === "true") {
     companyName = "Demo";
+    transactions = createRandomTransactions();
   } else {
     try {
       const loadResponse: LoadResponse = await axios.get(
@@ -62,28 +64,26 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       console.log(e.message);
       companyName = "";
     }
+    try {
+      // Get vouchers company
+      const respGetVouchers: GetVouchersResponse = await axios.get(
+        `https://backend-capstone-h3lwczj22a-et.a.run.app/vouchers?company=${companyName}`,
+        axiosHeader
+      );
+      // get purchases
+      const respGetPurchases: GetPurchasesResponse = await axios.get(
+        `https://backend-capstone-h3lwczj22a-et.a.run.app/purchases`,
+        axiosHeader
+      );
+      transactions = calculateLogs(
+        respGetPurchases.data.purchases,
+        respGetVouchers.data.vouchers
+      );
+    } catch (e) {
+      transactions = [];
+    }
   }
-  let transactions: Transaction[] = [];
-  if (allCookies.demo === true) {
-    transactions = createRandomTransactions();
-  } else {
-    // Get vouchers company
-    const respGetVouchers: GetVouchersResponse = await axios.get(
-      `https://backend-capstone-h3lwczj22a-et.a.run.app/vouchers?company=${companyName}`,
-      axiosHeader
-    );
-    // console.log(respGetVouchers.data.vouchers);
-    // get purchases
-    const respGetPurchases: GetPurchasesResponse = await axios.get(
-      `https://backend-capstone-h3lwczj22a-et.a.run.app/purchases`,
-      axiosHeader
-    );
-    // console.log(respGetPurchases.data.purchases);
-    transactions = calculateLogs(
-      respGetPurchases.data.purchases,
-      respGetVouchers.data.vouchers
-    );
-  }
+
   // Pass data to the page via props
   return { props: { companyName, transactions } };
 };

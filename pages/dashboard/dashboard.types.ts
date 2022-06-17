@@ -124,5 +124,5 @@ export interface GetPurchasesResponse {
 export interface CookieList{
   token: string;
   userId : string;
-  demo : boolean;
+  demo : string;
 }
