@@ -80,7 +80,7 @@ const Summary = ({ companyName, summaryData }: SummaryProps): JSX.Element => {
 // This gets called on every request
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   // Cookies
-  const allCookies: CookieList = cookies(ctx,{path:'/'});
+  const allCookies: CookieList = cookies(ctx, { path: "/" });
   // If no token or no user, redirect
   if (!allCookies.token || !allCookies.userId) {
     console.log("cookies missing, redirecting...");
@@ -94,7 +94,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   }
   // Fetch Partner by ID
   console.log(allCookies.demo);
-  
+
   let companyName: string;
   if (allCookies.demo === true) {
     companyName = "Demo";
@@ -112,7 +112,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     } catch (e) {
       console.log(e.message);
       companyName = "";
-    }    
+    }
   }
 
   // Fetch Data Summary
@@ -122,7 +122,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   };
   let summaryData: SummmaryData;
   if (allCookies.demo === true) {
-    summaryData = createRandomSummaryData();   
+    summaryData = createRandomSummaryData();
   } else {
     // Get vouchers company
     const respGetVouchers: GetVouchersResponse = await axios.get(
@@ -139,7 +139,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     summaryData = calculateSummary(
       respGetPurchases.data.purchases,
       respGetVouchers.data.vouchers
-    );     
+    );
   }
 
   return { props: { companyName, summaryData } };

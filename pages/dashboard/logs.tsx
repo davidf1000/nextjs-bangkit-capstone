@@ -63,12 +63,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       companyName = "";
     }
   }
-  let transactions:Transaction[]  = [] 
-  if (allCookies.demo === true)
-  {
+  let transactions: Transaction[] = [];
+  if (allCookies.demo === true) {
     transactions = createRandomTransactions();
-  }
-  else{
+  } else {
     // Get vouchers company
     const respGetVouchers: GetVouchersResponse = await axios.get(
       `https://backend-capstone-h3lwczj22a-et.a.run.app/vouchers?company=${companyName}`,
@@ -84,7 +82,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     transactions = calculateLogs(
       respGetPurchases.data.purchases,
       respGetVouchers.data.vouchers
-    );   
+    );
   }
   // Pass data to the page via props
   return { props: { companyName, transactions } };
