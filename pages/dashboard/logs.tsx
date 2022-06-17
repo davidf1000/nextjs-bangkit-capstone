@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import Sidebar from "../../components/dashboard/Sidebar";
 import Footer from "../../components/Footer";
-import LogTable from "../../components/dashboard/logs/LogTable";
+import LogTable from "../../components/dashboard/table/LogTable";
 import cookies from "next-cookies";
 import axios from "axios";
 import Heads from "../../components/Heads";
