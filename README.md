@@ -9,6 +9,11 @@ Web application intended for partner to register, login, and view dashboard to s
 Currently, the webapp is deployed on GCP using Cloud Run
 https://ecotrans-webapp-h3lwczj22a-et.a.run.app 
 
+It's also deployed on Heroku : 
+https://nextjs-capstone.herokuapp.com
+<br/>
+use username: demo and pass: Demo123 to test the admin dasboard 
+
 ## Development 
 ```bash
     npm run dev

@@ -123,7 +123,7 @@ const NavBar = ({ login }: NavBarProps): JSX.Element => {
         </div>
         <section className={`md:hidden ${dropdown}`}>
           <div className="flex-grow border-t border-gray-400 w-full my-2"></div>
-          <div className={`flex justify-end duration-100 mr-4`}>
+          <div className={`flex justify-start duration-100 ml-4`}>
             <ul className="flex flex-col items-center justify-between min-h-[250px]">
               <li className="border-b border-gray-400 my-8 uppercase">
                 <a
