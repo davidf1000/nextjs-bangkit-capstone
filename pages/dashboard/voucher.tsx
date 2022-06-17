@@ -157,7 +157,7 @@ const Voucher = ({
             ))}
           </div>
         </div>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </Fragment>
   );
@@ -186,7 +186,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   if (allCookies.demo === "true") {
     companyName = "Demo";
-    vouchers = createVouchers(5);
+    vouchers = createVouchers(Math.floor(Math.random()*4)+4);
   } else {
     try {
       const loadResponse: LoadResponse = await axios.get(

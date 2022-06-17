@@ -5,7 +5,7 @@ import LogTable from "../../components/dashboard/logs/LogTable";
 import cookies from "next-cookies";
 import axios from "axios";
 import Heads from "../../components/Heads";
-import { LoadResponse, LogsProps, Transaction } from "./dashboard.types";
+import { GetPurchasesResponse, GetVouchersResponse, LoadResponse, LogsProps, Transaction } from "./dashboard.types";
 import createRandomTransactions from "../../actions/fetchTransactions";
 import { GetServerSideProps } from "next";
 import calculateLogs from "../../actions/calculateLogs";
@@ -76,8 +76,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
         axiosHeader
       );
       transactions = calculateLogs(
-        respGetPurchases.data.purchases,
-        respGetVouchers.data.vouchers
+        respGetVouchers.data.vouchers,
+        respGetPurchases.data.purchases
       );
     } catch (e) {
       transactions = [];
