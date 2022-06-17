@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import cookieCutter from "cookie-cutter";
 import axios from "axios";
 import Footer from "../components/Footer";
-import { RegisterApiResponse, RegisterFormData } from "./user.types";
+import { RegisterApiResponse, RegisterFormData } from "./../components/pagetypes/user.types";
 
 // Register
 // CSR - React

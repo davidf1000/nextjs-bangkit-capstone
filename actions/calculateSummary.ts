@@ -3,7 +3,7 @@ import {
   SummaryData,
   Voucher,
   VoucherAndPurchase,
-} from "../pages/dashboard/dashboard.types";
+} from "../components/pagetypes/dashboard.types";
 
 const calculateSummary = (
   vouchers: Voucher[],

@@ -3,7 +3,7 @@ import {
   Transaction,
   Voucher,
   VoucherAndPurchase,
-} from "../pages/dashboard/dashboard.types";
+} from "../components/pagetypes/dashboard.types";
 
 const calculateLogs = (
   vouchers: Voucher[],

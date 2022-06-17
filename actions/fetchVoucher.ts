@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { Voucher } from "../pages/dashboard/dashboard.types";
+import { Voucher } from "../components/pagetypes/dashboard.types";
 
 const category = [
   "Electronic",

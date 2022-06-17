@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 import Heads from "../components/Heads";
 import { useRouter } from "next/router";
 import cookieCutter from "cookie-cutter";
-import { LoginApiResponse, LoginFormData } from "./user.types";
+import { LoginApiResponse, LoginFormData } from "./../components/pagetypes/user.types";
 
 // Login
 // CSR - React

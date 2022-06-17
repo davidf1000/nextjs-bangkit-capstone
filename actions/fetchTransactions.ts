@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 import moment from 'moment';
-import { Transaction } from '../pages/dashboard/dashboard.types';
+import { Transaction } from '../components/pagetypes/dashboard.types';
 
 const category = ['Electronic', 'Fashion', 'Food', 'Transportation', 'Ecommerce']
 

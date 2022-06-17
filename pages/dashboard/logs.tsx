@@ -5,7 +5,7 @@ import LogTable from "../../components/dashboard/logs/LogTable";
 import cookies from "next-cookies";
 import axios from "axios";
 import Heads from "../../components/Heads";
-import { GetPurchasesResponse, GetVouchersResponse, LoadResponse, LogsProps, Transaction } from "./dashboard.types";
+import { GetPurchasesResponse, GetVouchersResponse, LoadResponse, LogsProps, Transaction } from "../../components/pagetypes/dashboard.types";
 import createRandomTransactions from "../../actions/fetchTransactions";
 import { GetServerSideProps } from "next";
 import calculateLogs from "../../actions/calculateLogs";

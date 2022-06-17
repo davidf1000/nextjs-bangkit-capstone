@@ -1,4 +1,4 @@
-import { SummaryData } from "../pages/dashboard/dashboard.types";
+import { SummaryData } from "../components/pagetypes/dashboard.types";
 
 const createRandomSummaryData = ():SummaryData =>({
     transactionsMade: Math.floor(Math.random() * 10),

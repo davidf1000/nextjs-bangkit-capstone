@@ -1,4 +1,4 @@
-import { AxiosHeader, Voucher } from "../../../pages/dashboard/dashboard.types";
+import { AxiosHeader, Voucher } from "../../pagetypes/dashboard.types";
 
 export interface AddVoucherResponse {
     status: number;

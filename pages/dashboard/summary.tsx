@@ -8,13 +8,12 @@ import cookies from "next-cookies";
 import Heads from "../../components/Heads";
 import ChartDoughnut from "../../components/dashboard/summary/ChartDoughnut";
 import {
-  CookieList,
   GetPurchasesResponse,
   GetVouchersResponse,
   LoadResponse,
   SummaryData,
   SummaryProps,
-} from "./dashboard.types";
+} from "../../components/pagetypes/dashboard.types";
 import createRandomSummaryData from "../../actions/createRandomSummary";
 import { GetServerSideProps } from "next";
 import calculateSummary from "../../actions/calculateSummary";
@@ -80,7 +79,7 @@ const Summary = ({ companyName, summaryData }: SummaryProps): JSX.Element => {
 // This gets called on every request
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   // Cookies
-  const allCookies: CookieList = cookies(ctx, { path: "/" });
+  const allCookies: Record<string,string> = cookies(ctx);
   const axiosHeader = {
     headers: { Authorization: `Bearer ${allCookies.token}` },
   };
@@ -96,7 +95,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     };
   }
   let companyName: string;
-  let summaryData: SummmaryData;
+  let summaryData: SummaryData;
   if (allCookies.demo === "true") {
     companyName = "Demo";
     summaryData = createRandomSummaryData();
@@ -128,11 +127,11 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
         axiosHeader
       );
       summaryData = calculateSummary(
-        respGetPurchases.data.purchases,
-        respGetVouchers.data.vouchers
+        respGetVouchers.data.vouchers,
+        respGetPurchases.data.purchases
       );
     } catch (e: any) {
-      summaryData = [];
+      console.log(e.message);
     }
   }
   return { props: { companyName, summaryData } };

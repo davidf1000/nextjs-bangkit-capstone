@@ -14,7 +14,7 @@ import {
   Voucher,
   VoucherProps,
   VouchersResponse,
-} from "./dashboard.types";
+} from "../../components/pagetypes/dashboard.types";
 import { GetServerSideProps } from "next";
 import createVouchers from "../../actions/fetchVoucher";
 
@@ -165,7 +165,7 @@ const Voucher = ({
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   // Cookies
-  const allCookies: CookieList = cookies(ctx);
+  const allCookies: Record<string,string> = cookies(ctx);
   const axiosHeader = {
     headers: { Authorization: `Bearer ${allCookies.token}` },
   };
