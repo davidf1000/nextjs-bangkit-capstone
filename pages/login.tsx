@@ -89,14 +89,14 @@ const Login = (): JSX.Element => {
 `}</style>
       <div className="flex flex-col h-screen justify-between font-sans">
         <NavBar login={true} />
-        <div className="flex rounded bg-white mx-auto my-12 w-3/4 justify-center">
-          <div className="container bg-slate-500 rounded w-0 md:w-1/2">
+        <div className="flex rounded bg-white mx-auto my-12 w-3/4 xl:w-1/2 max-h-[750px] justify-center">
+          <div className="container bg-slate-500 w-1/2 rounded w-0 md:w-1/2">
             <img
-              className="object-cover rounded h-full"
+              className="object-cover rounded h-full w-full"
               src="/images/login.jpg"
             />
           </div>
-          <div className="container rounded bg-white content-center items-center">
+          <div className="container rounded bg-white w-1/2 content-center items-center">
             <div className="flex flex-col text-center justify-between my-16">
               <div>
                 <h1 className="text-5xl font-sans mb-16">Welcome</h1>

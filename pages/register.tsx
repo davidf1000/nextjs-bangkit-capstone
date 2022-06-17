@@ -74,17 +74,17 @@ const Register = (): JSX.Element => {
 `}</style>
       <div className="flex flex-col h-screen justify-between">
         <NavBar login={true} />
-        <div className="flex rounded bg-white mx-auto my-12 w-5/6 font-sans">
-          <div className="container rounded bg-slate-500 rounded w-0 md:w-full">
+        <div className="flex rounded bg-white mx-auto my-12 w-3/4 xl:w-1/2 max-h-[750px] justify-center">
+        <div className="container bg-slate-500 w-1/2 rounded w-0 md:w-1/2">
             <img
               className="object-cover rounded h-full"
               src="/images/register.jpg"
             />
           </div>
-          <div className="container rounded-xl bg-white my-12">
+          <div className="container rounded bg-white w-1/2 mt-8 mb-12 content-center items-center">
             <div className="flex flex-col text-center justify-between">
               <div>
-                <h1 className="text-5xl font-sans mt-10 mb-8">
+                <h1 className="text-5xl font-sans mt-10 mb-4">
                   Register your account
                 </h1>
               </div>
