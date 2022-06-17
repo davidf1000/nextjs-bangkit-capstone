@@ -32,7 +32,7 @@ const calculateSummary = (
     0
   );
   // 3. Number of Current Stock
-  const currentStock = vouchers.reduce((acc, item) => acc + item.stock, 0);
+  const currentStock = purchaseUpdated.reduce((acc, item) => (acc + item.stock), 0);
   // 4. Number of Points Earned
   const pointsEarned = purchaseUpdated.reduce(
     (acc, item) => acc + item.buyQuantity * item.price,
@@ -62,8 +62,6 @@ const calculateSummary = (
       )},${Math.floor(Math.random() * 255)})`
     );
   });
-  console.log(listVoucherNames);
-  console.log(listVoucherBuy);
 
   // 6. Get list of data (size 12) for each month
   const monthLabel = [
@@ -94,10 +92,10 @@ const calculateSummary = (
     listLineData.push(sumPurchase);
   });
   const result = {
-    transactionsMade: 0,
-    voucherSold: 0,
-    currentStock: 0,
-    pointsEarned: 0,
+    transactionsMade,
+    voucherSold,
+    currentStock,
+    pointsEarned,
     dataDoughnut: {
       labels: listVoucherNames,
       datasets: [
