@@ -59,10 +59,10 @@ const Login = (): JSX.Element => {
         setAlert(res.data.msg);
         setLoading(false);
       } else {
-        const opt = {path: '/'}
+        const opt = { path: '/' }
         // Set cookie for token and userID
-        cookieCutter.set("token", res.data.token,opt);
-        cookieCutter.set("userId", res.data.partnerId,opt);
+        cookieCutter.set("token", res.data.token, opt);
+        cookieCutter.set("userId", res.data.partnerId, opt);
         // If demo account, set demo to true
         cookieCutter.set(
           "demo",
