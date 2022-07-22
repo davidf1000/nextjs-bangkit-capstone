@@ -7,6 +7,9 @@ Web application intended for partner to register, login, and view dashboard to s
 - Tailwind CSS
 - Chartjs
 
+## Backend
+Repo for backend Go Application : https://github.com/15BESAR/ecotrans-backend-cloud-infra
+
 ## Deployment
 
 Currently, the webapp is deployed on GCP using Cloud Run
